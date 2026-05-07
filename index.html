@@ -574,18 +574,18 @@
 <!-- ========== 個人報告 ========== -->
 <section id="report" hidden>
   <h2>你的 AI 即戰力報告</h2>
-
-  <div class="report-card">
-    <p class="report-label">人機協作層次</p>
-    <p class="report-level"><span id="level-code"></span> — <span id="level-label"></span></p>
-    <p id="level-desc" class="report-desc"></p>
-  </div>
+  <p class="report-intro">六個能力維度各自獨立評估，沒有總體分數、沒有排名。看哪些已上手、哪些還可以加強。</p>
 
   <div class="report-card">
     <p class="report-label">六維能力雷達</p>
     <div class="chart-wrap">
       <canvas id="radar-chart"></canvas>
     </div>
+  </div>
+
+  <div class="report-card">
+    <p class="report-label">六維各自層次（L1–L6）</p>
+    <div id="dim-grid" class="dim-grid"></div>
   </div>
 
   <div id="gap-card" class="report-card" hidden>

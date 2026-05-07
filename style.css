@@ -549,6 +549,82 @@ textarea:focus {
   aspect-ratio: 1 / 1;
 }
 
+.report-intro {
+  margin: -8px 0 24px;
+  font-size: 14px;
+  color: var(--color-text-2);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* 六維獨立 Level 卡片 */
+.dim-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.dim-card {
+  padding: 14px 16px;
+  background: var(--color-surface-2);
+  border-radius: 8px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.dim-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.dim-card-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-ink);
+}
+
+.dim-card-score {
+  font-size: 13px;
+  color: var(--color-text-3);
+  font-family: var(--mono, ui-monospace, monospace);
+}
+
+.dim-card-level {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.dim-card-level-code {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: 1px;
+}
+
+.dim-card-level-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.dim-card-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-text-2);
+}
+
+@media (max-width: 600px) {
+  .dim-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .report-card.status {
   text-align: center;
   background: var(--color-surface-2);
