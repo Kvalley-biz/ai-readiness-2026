@@ -30,16 +30,31 @@ const DIMENSIONS = [
   { code:'D6', label:'AI 風險意識', qs:['Q26','Q27','Q28','Q29','Q30'] },
 ];
 
-// ====== L1–L6 層次定義（v3.3：每維 0-5 分 → L1-L6 線性對應）======
-// 每維滿分 5 分；每分對應一層
-const LEVELS_BY_SCORE = [
-  { score:0, code:'L1', label:'會問',    desc:'這個面向你還在起步，下一步是學會把問題拆解得更具體。' },
-  { score:1, code:'L2', label:'會拆',    desc:'你能做基本的拆解和比較，下一步是學會串接工具。' },
-  { score:2, code:'L3', label:'會串',    desc:'你能串接多個工具完成任務，下一步是設計可重複使用的流程。' },
-  { score:3, code:'L4', label:'會設計',  desc:'你已能設計工作流與工具鏈，下一步是把驗證過的流程自動化。' },
-  { score:4, code:'L5', label:'會自動化', desc:'你能建立自動觸發機制，下一步是協調多個 Agent 協同運作。' },
-  { score:5, code:'L6', label:'會指揮',  desc:'你能設計並指揮 AI Agent，從執行者轉為系統設計師。' },
-];
+// ====== L1–L6 題目層次標記（v3.4：30 題重新按難度分到六層）======
+const QUESTION_LEVELS = {
+  // L1 會問（基礎提問與多模態）
+  Q01:'L1', Q06:'L1', Q14:'L1', Q21:'L1', Q26:'L1',
+  // L2 會拆（結構化指令、拆解判斷）
+  Q02:'L2', Q07:'L2', Q16:'L2', Q23:'L2', Q27:'L2',
+  // L3 會串（串接邏輯、工具選擇）
+  Q03:'L3', Q08:'L3', Q12:'L3', Q17:'L3', Q28:'L3',
+  // L4 會設計（Few-shot、流程設計、Brief）
+  Q04:'L4', Q09:'L4', Q15:'L4', Q18:'L4', Q22:'L4',
+  // L5 會自動化（系統提示詞、迭代維護、合規）
+  Q05:'L5', Q10:'L5', Q19:'L5', Q20:'L5', Q30:'L5',
+  // L6 會指揮（LLM 原生整合、MCP、Skills、AI 治理）
+  Q11:'L6', Q13:'L6', Q24:'L6', Q25:'L6', Q29:'L6',
+};
+
+// 各層次描述
+const LEVEL_INFO = {
+  L1: { label:'會問',    desc:'你能用 AI 提問、得到有用的答案。這是所有應用的起點。' },
+  L2: { label:'會拆',    desc:'你能寫結構化指令，拆解資料、做初步分析。' },
+  L3: { label:'會串',    desc:'你能串接多個工具與邏輯完成複雜任務。' },
+  L4: { label:'會設計',  desc:'你能設計工具鏈與工作流，知道怎麼引導 AI 學風格。' },
+  L5: { label:'會自動化', desc:'你能建立自動觸發機制、迭代維護流程，人只需監控例外。' },
+  L6: { label:'會指揮',  desc:'你掌握 LLM 原生整合、MCP / Skills 等前緣能力，能指揮 Agent 跨工具協同。' },
+};
 
 // 進階工具（Type B 偵測用）
 const ADVANCED_B6 = [
@@ -183,78 +198,88 @@ function collectAnswers() {
   return data;
 }
 
-// ====== 計分（v3.3：六維各自獨立 Level，無總體層次）======
+// ====== 計分（v3.4：同時算「六維分布」+「六層深度」）======
 function computeScore(data) {
-  // 各維度分數 + 各自 Level
+  // 六維分數（用於雷達圖）
   const dimScores = DIMENSIONS.map(dim => {
     const correct = dim.qs.reduce(
       (sum, q) => sum + (data.answers[q] === ANSWER_KEY[q] ? 1 : 0),
       0
     );
-    const level = LEVELS_BY_SCORE.find(L => L.score === correct);
+    return { code: dim.code, label: dim.label, score: correct, max: 5 };
+  });
+
+  // 六層分數（用於 L1-L6 卡片）
+  const levelScores = ['L1','L2','L3','L4','L5','L6'].map(L => {
+    const qsInLevel = Object.entries(QUESTION_LEVELS)
+      .filter(([_, lv]) => lv === L)
+      .map(([q]) => q);
+    const correct = qsInLevel.reduce(
+      (sum, q) => sum + (data.answers[q] === ANSWER_KEY[q] ? 1 : 0),
+      0
+    );
     return {
-      code: dim.code,
-      label: dim.label,
+      code: L,
+      label: LEVEL_INFO[L].label,
+      desc: LEVEL_INFO[L].desc,
       score: correct,
-      max: 5,
-      levelCode: level.code,
-      levelLabel: level.label,
-      levelDesc: level.desc,
+      max: qsInLevel.length, // 每層 5 題
     };
   });
 
-  // 最高層次（用來判斷認知差距 / Type）
-  const maxScore = Math.max(...dimScores.map(d => d.score));
-  const minScore = Math.min(...dimScores.map(d => d.score));
-  const dimsAtL4Plus = dimScores.filter(d => d.score >= 3).length; // L4 = 答對 3 題以上
-  const total = dimScores.reduce((s, d) => s + d.score, 0); // 內部用，不顯示
+  // 最高達到的層次（用於認知差距 / Type）
+  const highestLevel = [...levelScores].reverse().find(L => L.score >= 3);
+  const lowLevelStrong = levelScores.slice(0, 3).every(L => L.score >= 4); // L1-L3 都 ≥4
+  const highLevelStrong = levelScores.slice(3).reduce((s, L) => s + L.score, 0); // L4-L6 累計
 
-  // 自我認知差距（B3 vs 最高維度）
+  // 自我認知差距（B3 vs 最高層次）
   let gap = 'accurate';
   let gapText = '';
-  if (data.B3 >= 4 && maxScore <= 2) {
+  if (data.B3 >= 4 && !highestLevel) {
     gap = 'overestimate';
-    gapText = '你對自己的評分偏高，但測驗結果顯示六個維度都還沒到「會設計」層次——這是課程的好起點，可以把自我感覺轉化為實際技能。';
-  } else if (data.B3 <= 2 && maxScore >= 4) {
+    gapText = '你對自己的評分偏高，但測驗顯示連 L1（會問）都還沒穩——這是課程的好起點，可以把自我感覺轉化為實際技能。';
+  } else if (data.B3 <= 2 && highestLevel && (highestLevel.code === 'L5' || highestLevel.code === 'L6')) {
     gap = 'underestimate';
-    gapText = '你低估了自己——你在某些維度已經達到「會自動化」甚至「會指揮」的層次，比你以為的強很多。';
+    gapText = `你低估了自己——你已經達到「${highestLevel.code} ${highestLevel.label}」的層次，比你以為的強很多。`;
   }
 
-  // Type 判定（六維獨立邏輯）
+  // Type 判定
   const advancedB6Count = data.B6.filter(v => ADVANCED_B6.includes(v)).length;
   const noneSelected = data.B6.includes('都沒用過');
 
   let type;
-  if (dimsAtL4Plus >= 3 && advancedB6Count >= 2 && data.B3 <= 3) {
-    type = 'TypeB'; // 隱藏高手：≥3 個維度達 L4 + 用過進階工具 + 自評不高
-  } else if (dimsAtL4Plus === 0 || noneSelected) {
-    type = 'TypeC'; // 觀望 / 抗拒：沒有任何維度達 L4，或勾「都沒用過」
+  if (highLevelStrong >= 8 && advancedB6Count >= 2 && data.B3 <= 3) {
+    type = 'TypeB'; // 隱藏高手：L4-L6 累計 ≥8 + 用過進階工具 + 自評不高
+  } else if (levelScores[0].score < 3 || noneSelected) {
+    type = 'TypeC'; // 觀望 / 抗拒：L1 都不到 3 分，或勾「都沒用過」
   } else {
     type = 'TypeA'; // 基礎應用者
   }
 
-  return { dimScores, total, maxScore, minScore, dimsAtL4Plus, gap, gapText, type };
+  return { dimScores, levelScores, highestLevel, gap, gapText, type };
 }
 
-// ====== 顯示報告（v3.3：六維獨立 Level）======
+// ====== 顯示報告（v3.4：六維雷達 + 六層卡片）======
 function showReport(score, data) {
   form.hidden = true;
 
-  // 渲染六維卡片
-  const dimGrid = document.getElementById('dim-grid');
-  dimGrid.innerHTML = score.dimScores.map(d => `
-    <div class="dim-card">
-      <div class="dim-card-head">
-        <span class="dim-card-name">${d.label}</span>
-        <span class="dim-card-score">${d.score} / 5</span>
+  // 渲染 L1-L6 卡片
+  const levelGrid = document.getElementById('level-grid');
+  levelGrid.innerHTML = score.levelScores.map(L => {
+    const reached = L.score >= 3;
+    return `
+    <div class="level-card ${reached ? 'reached' : ''}">
+      <div class="level-card-head">
+        <div class="level-card-title">
+          <span class="level-card-code">${L.code}</span>
+          <span class="level-card-label">${L.label}</span>
+        </div>
+        <span class="level-card-score">${L.score} / ${L.max}</span>
       </div>
-      <div class="dim-card-level">
-        <span class="dim-card-level-code">${d.levelCode}</span>
-        <span class="dim-card-level-label">${d.levelLabel}</span>
-      </div>
-      <p class="dim-card-desc">${d.levelDesc}</p>
+      <p class="level-card-desc">${L.desc}</p>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   // 開放填答回顯
   document.getElementById('d4-echo').textContent = data.D3 ? `「${data.D3}」` : '—';
@@ -323,10 +348,10 @@ function drawRadar(dimScores) {
   });
 }
 
-// ====== 組裝送 Sheets 的 payload（v3.3：每維獨立 Level，無總體層次）======
+// ====== 組裝送 Sheets 的 payload（v3.4：六維 + 六層雙視角）======
 function buildPayload(data, score) {
-  const byCode = Object.fromEntries(score.dimScores.map(d => [d.code, d]));
-  const fmt = d => `${d.score}/5 ${d.levelCode} ${d.levelLabel}`;
+  const dimMap = Object.fromEntries(score.dimScores.map(d => [d.code, d.score]));
+  const lvlMap = Object.fromEntries(score.levelScores.map(L => [L.code, L.score]));
 
   return {
     timestamp: new Date().toISOString(),
@@ -340,14 +365,21 @@ function buildPayload(data, score) {
     B4_最受挫場景: data.B4,
     B5_遇問題處理: data.B5,
     B6_進階功能: data.B6.join('|'),
-    D1_指令設計_層次: fmt(byCode.D1),
-    D2_數據應用_層次: fmt(byCode.D2),
-    D3_工具選擇_層次: fmt(byCode.D3),
-    D4_流程設計_層次: fmt(byCode.D4),
-    D5_協作委派_層次: fmt(byCode.D5),
-    D6_風險意識_層次: fmt(byCode.D6),
-    最高維度層次: `${score.maxScore}/5 (${score.dimScores.find(d => d.score === score.maxScore).levelCode})`,
-    達L4以上維度數: score.dimsAtL4Plus,
+    // 六維（雷達圖用）
+    維_D1_指令設計: dimMap.D1,
+    維_D2_數據應用: dimMap.D2,
+    維_D3_工具選擇: dimMap.D3,
+    維_D4_流程設計: dimMap.D4,
+    維_D5_協作委派: dimMap.D5,
+    維_D6_風險意識: dimMap.D6,
+    // 六層（深度進階）
+    層_L1_會問: lvlMap.L1,
+    層_L2_會拆: lvlMap.L2,
+    層_L3_會串: lvlMap.L3,
+    層_L4_會設計: lvlMap.L4,
+    層_L5_會自動化: lvlMap.L5,
+    層_L6_會指揮: lvlMap.L6,
+    最高達層次: score.highestLevel ? `${score.highestLevel.code} ${score.highestLevel.label}` : '未達 L1',
     Type: score.type,
     認知差距: score.gap === 'overestimate' ? '高估'
             : score.gap === 'underestimate' ? '低估'
