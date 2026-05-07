@@ -196,6 +196,16 @@ main {
   border-left: 3px solid var(--color-accent-line);
 }
 
+.part-intro {
+  margin: -10px 0 18px;
+  font-size: 14px;
+  color: var(--color-text-2);
+  line-height: 1.7;
+  padding: 10px 14px;
+  background: var(--color-surface-2);
+  border-radius: 6px;
+}
+
 /* ============ QUESTION ============ */
 .question {
   margin: 28px 0 0;
@@ -210,9 +220,9 @@ main {
 
 .q-title {
   margin: 0 0 16px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--color-ink);
 }
 
@@ -297,14 +307,14 @@ main {
 .options label {
   display: flex;
   align-items: flex-start;
-  padding: 13px 16px;
+  padding: 14px 18px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-surface);
   cursor: pointer;
   transition: all 0.15s ease;
-  line-height: 1.7;
-  font-size: 15px;
+  line-height: 1.75;
+  font-size: 16px;
   user-select: none;
 }
 

@@ -10,13 +10,13 @@
 // 部署 Apps Script 後把 Web App URL 貼這裡
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_aG4Ad74r2pASZfnvQ49zm1xu7r3fj8zI8R276d4Xw_TqECTwHOOZY9dW3dQ8y-63iQ/exec';
 
-// ====== 答案 KEY（v3/v4 最終版） ======
+// ====== 答案 KEY（v3.2 — Jimmy 18 點 + LLM 整合 / MCP / Skills 補題 2026-05-07） ======
 const ANSWER_KEY = {
   Q01:'B', Q02:'C', Q03:'D', Q04:'A', Q05:'D',
-  Q06:'D', Q07:'A', Q08:'B', Q09:'C', Q10:'C',
-  Q11:'D', Q12:'C', Q13:'D', Q14:'A', Q15:'B',
-  Q16:'A', Q17:'D', Q18:'B', Q19:'C', Q20:'D',
-  Q21:'C', Q22:'C', Q23:'A', Q24:'A', Q25:'B',
+  Q06:'D', Q07:'A', Q08:'B', Q09:'C', Q10:'D',
+  Q11:'B', Q12:'B', Q13:'A', Q14:'A', Q15:'B', // Q11 換 Gemini 整合 (B); Q13 換 Forms→PPT (A)
+  Q16:'A', Q17:'D', Q18:'B', Q19:'C', Q20:'C',
+  Q21:'C', Q22:'C', Q23:'A', Q24:'B', Q25:'B', // Q24 換 Skills (B); Q25 換 MCP (B)
   Q26:'B', Q27:'B', Q28:'A', Q29:'D', Q30:'C',
 };
 
@@ -46,6 +46,7 @@ const ADVANCED_B6 = [
   'Make或Zapier或n8n',
   'Prompt模板或系統提示詞',
   'NotebookLM',
+  'AI Agent工具',
 ];
 
 // ====== DOM Refs ======
@@ -132,13 +133,12 @@ function validate() {
     if (!form.querySelector(`input[name="${q}"]:checked`)) errors.push(q);
   }
 
-  // D 區
+  // D 區（v3：3 題）
   if (!form.querySelector('input[name="D1"]:checked')) errors.push('D1');
   if (!form.querySelector('input[name="D2"]:checked')) errors.push('D2');
-  if (!form.querySelector('input[name="D3"]:checked')) errors.push('D3');
-  // D4 開放填答必填
-  const d4 = form.querySelector('textarea[name="D4"]');
-  if (!d4.value.trim()) errors.push('D4');
+  // D3 開放填答必填
+  const d3 = form.querySelector('textarea[name="D3"]');
+  if (!d3.value.trim()) errors.push('D3');
 
   return errors;
 }
@@ -166,14 +166,13 @@ function collectAnswers() {
     A4: single('A4'),
     B1: single('B1'),
     B2: multi('B2'),
-    B3: single('B3'),
-    B4: parseInt(single('B4'), 10),
+    B3: parseInt(single('B3'), 10), // v3: 1–5 自評（合併 v2 B3 行為 + B4 自評）
+    B4: single('B4'),                // v3 新題：最受挫場景（不計分）
     B5: single('B5'),
     B6: multi('B6'),
-    D1: withOther(multi('D1'), 'D1'),
-    D2: single('D2') === '其他' && other('D2') ? '其他:' + other('D2') : single('D2'),
-    D3: withOther(multi('D3'), 'D3'),
-    D4: (fd.get('D4') || '').trim(),
+    D1: single('D1') === '其他' && other('D1') ? '其他:' + other('D1') : single('D1'),
+    D2: withOther(multi('D2'), 'D2'),
+    D3: (fd.get('D3') || '').trim(),
     answers: {},
   };
   for (let i = 1; i <= 30; i++) {
@@ -197,13 +196,13 @@ function computeScore(data) {
   const total = dimScores.reduce((s, d) => s + d.score, 0);
   const level = LEVELS.find(L => total >= L.min && total <= L.max);
 
-  // 自我認知差距
+  // 自我認知差距（v3：用 B3 合併後的 1–5 自評）
   let gap = 'accurate';
   let gapText = '';
-  if (data.B4 >= 4 && total <= 10) {
+  if (data.B3 >= 4 && total <= 10) {
     gap = 'overestimate';
     gapText = '你對自己的評分高於測驗結果——課程可以幫你把信心轉化為實際技能。';
-  } else if (data.B4 <= 2 && total >= 16) {
+  } else if (data.B3 <= 2 && total >= 16) {
     gap = 'underestimate';
     gapText = '你低估了自己，測驗結果顯示你的能力比你以為的強很多。';
   }
@@ -213,8 +212,8 @@ function computeScore(data) {
   const noneSelected = data.B6.includes('都沒用過');
 
   let type;
-  if (total >= 16 && advancedB6Count >= 2 && data.B4 <= 3) {
-    type = 'TypeB'; // 隱藏高手
+  if (total >= 16 && advancedB6Count >= 2 && data.B3 <= 3) {
+    type = 'TypeB'; // 隱藏高手（v3：用 B3 合併後自評）
   } else if (total <= 5 || noneSelected) {
     type = 'TypeC'; // 觀望/抗拒
   } else {
@@ -234,8 +233,8 @@ function showReport(score, data) {
   document.getElementById('level-label').textContent = score.level.label;
   document.getElementById('level-desc').textContent = score.level.desc;
 
-  // D4 回顯
-  document.getElementById('d4-echo').textContent = data.D4 ? `「${data.D4}」` : '—';
+  // D3 回顯（v3：原 D4 開放填答編號上移為 D3）
+  document.getElementById('d4-echo').textContent = data.D3 ? `「${data.D3}」` : '—';
 
   // 認知差距
   if (score.gapText) {
@@ -314,8 +313,8 @@ function buildPayload(data, score) {
     A4_耗時階段: data.A4,
     B1_使用頻率: data.B1,
     B2_主要用途: data.B2.join('|'),
-    B3_使用方式: data.B3,
-    B4_自評: data.B4,
+    B3_綜合自評: data.B3,
+    B4_最受挫場景: data.B4,
     B5_遇問題處理: data.B5,
     B6_進階功能: data.B6.join('|'),
     C_D1_指令設計: dimMap.D1,
@@ -330,10 +329,9 @@ function buildPayload(data, score) {
     認知差距: score.gap === 'overestimate' ? '高估'
             : score.gap === 'underestimate' ? '低估'
             : '準確',
-    D1_最耗時3件: data.D1.join('|'),
-    D2_最想省: data.D2,
-    D3_顧慮: data.D3.join('|'),
-    D4_開放填答: data.D4,
+    D1_最想省: data.D1,
+    D2_顧慮: data.D2.join('|'),
+    D3_開放填答: data.D3,
     // raw answers for audit
     raw_answers: Object.entries(data.answers).map(([q, v]) => `${q}:${v}`).join(','),
   };

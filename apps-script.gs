@@ -15,7 +15,7 @@
 // ====== 設定區 ======
 const SHEET_NAME = '評測結果';
 
-// 欄位順序（必須與 script.js buildPayload 對應）
+// 欄位順序（v3 — 必須與 script.js buildPayload 對應）
 const HEADERS = [
   'timestamp',
   'A1_部門',
@@ -24,8 +24,8 @@ const HEADERS = [
   'A4_耗時階段',
   'B1_使用頻率',
   'B2_主要用途',
-  'B3_使用方式',
-  'B4_自評',
+  'B3_綜合自評',
+  'B4_最受挫場景',
   'B5_遇問題處理',
   'B6_進階功能',
   'C_D1_指令設計',
@@ -38,10 +38,9 @@ const HEADERS = [
   '層次',
   'Type',
   '認知差距',
-  'D1_最耗時3件',
-  'D2_最想省',
-  'D3_顧慮',
-  'D4_開放填答',
+  'D1_最想省',
+  'D2_顧慮',
+  'D3_開放填答',
   'raw_answers',
 ];
 
