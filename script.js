@@ -263,10 +263,10 @@ function computeScore(data) {
 function showReport(score, data) {
   form.hidden = true;
 
-  // 渲染 L1-L6 卡片
+  // 渲染 L1-L6 卡片（達 4 題以上算「站穩這層」，點亮）
   const levelGrid = document.getElementById('level-grid');
   levelGrid.innerHTML = score.levelScores.map(L => {
-    const reached = L.score >= 3;
+    const reached = L.score >= 4;
     return `
     <div class="level-card ${reached ? 'reached' : ''}">
       <div class="level-card-head">
