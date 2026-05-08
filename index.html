@@ -52,7 +52,7 @@
   </div>
 
   <div class="question" data-q="A3">
-    <p class="q-title"><span class="q-no">A3</span> 你目前使用哪些 AI 工具？<span class="hint">（可複選）</span></p>
+    <p class="q-title"><span class="q-no">A3</span> 你工作上最常用的 AI 工具是？<span class="hint">（複選，最多 3 個）</span></p>
     <div class="options">
       <label><input type="checkbox" name="A3" value="ChatGPT" /> ChatGPT</label>
       <label><input type="checkbox" name="A3" value="Claude" /> Claude</label>
@@ -76,6 +76,7 @@
       <label><input type="radio" name="A4" value="資料分析報表" /> 資料分析 / 報表製作</label>
       <label><input type="radio" name="A4" value="行政會議協調" /> 行政 / 會議 / 跨部門協調</label>
       <label><input type="radio" name="A4" value="視覺影音製作" /> 視覺 / 影音製作（剪輯、設計）</label>
+      <label class="other"><input type="radio" name="A4" value="其他" /> 其他：<input type="text" name="A4_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 </section>
@@ -139,6 +140,7 @@
     <p class="q-title"><span class="q-no">B5</span> 在工作上遇到 AI 相關問題，你通常怎麼處理？</p>
     <div class="options">
       <label><input type="radio" name="B5" value="自己摸索" required /> 自己摸索直到解決</label>
+      <label><input type="radio" name="B5" value="直接問AI" /> 直接問 AI 怎麼解（讓它教我）</label>
       <label><input type="radio" name="B5" value="問同事" /> 找有在用 AI 的同事請教</label>
       <label><input type="radio" name="B5" value="找教學" /> 去網路上找教學</label>
       <label><input type="radio" name="B5" value="放棄" /> 放棄，繼續用原本的方法</label>
@@ -147,7 +149,7 @@
   </div>
 
   <div class="question" data-q="B6">
-    <p class="q-title"><span class="q-no">B6</span> 以下哪些 AI 功能你曾經使用過？<span class="hint">（複選，選所有符合的）</span></p>
+    <p class="q-title"><span class="q-no">B6</span> 以下哪些 AI 進階功能你曾經實際操作過？<span class="hint">（複選）</span></p>
     <div class="options">
       <label><input type="checkbox" name="B6" value="Gemini Workspace側邊欄" /> Gemini for Workspace 側邊欄（在 Google Docs / Gmail / Sheets 直接呼叫 Gemini）</label>
       <label><input type="checkbox" name="B6" value="Claude Projects或Gemini Gems" /> Claude Projects 或 Gemini Gems（上傳文件建立知識庫的自訂 AI 助手）</label>
@@ -267,7 +269,7 @@
     <div class="options">
       <label><input type="radio" name="Q09" value="A" required /> A. 直接交給 AI，請它自動忽略有問題的欄位</label>
       <label><input type="radio" name="Q09" value="B" /> B. 只分析那 85% 資料沒問題的讀者記錄，其餘略過</label>
-      <label><input type="radio" name="Q09" value="C" /> C. 先處理資料品質問題（統一日期格式、填補空值邏輯、合併重複項），再交給 AI 分析</label>
+      <label><input type="radio" name="Q09" value="C" /> C. 統一日期格式、填補空值、合併重複項，再交給 AI 分析</label>
       <label><input type="radio" name="Q09" value="D" /> D. 先讓 AI 評估這些資料問題的嚴重程度，再決定怎麼做</label>
     </div>
   </div>
@@ -289,27 +291,27 @@
   <p class="part-intro">情境會出現你部門可能不熟悉的工作（影音、社群、業務）。即使不在你的工作範圍，請站在那位同事的角度想「如果是我，我會怎麼做」。</p>
 
   <div class="question" data-q="Q11">
-    <p class="q-title"><span class="q-no">Q11</span> 你要寫一篇「2024 年訂閱經濟」的產業分析。資料散在三個地方：① 公司 Notion 裡的歷年讀者調查 ② 三份產業 PDF（已存 Google Drive）③ 主編傳給你的 LINE 採訪錄音。你想讓 AI 整合分析、寫初稿、再直接 email 給主編 review。最有效率的做法？</p>
+    <p class="q-title"><span class="q-no">Q11</span> 你要寫一篇「2024 年訂閱經濟」的產業分析。資料散在三個地方：① 公司 Google Sheets 裡的歷年讀者調查 ② 三份產業 PDF（已存 Google Drive）③ 主編傳給你的 LINE 採訪錄音。你想讓 AI 整合分析、寫初稿、再直接 email 給主編 review。最有效率的做法？</p>
     <div class="options">
-      <label><input type="radio" name="Q11" value="A" required /> A. 三個來源全部下載 / 截圖整理成一個 Word，再丟給 ChatGPT 寫初稿，寫完手動寄給主編</label>
-      <label><input type="radio" name="Q11" value="B" /> B. 用 Gemini 連接 Drive / Gmail / Notion，請它讀三個來源、生成初稿、直接從對話框寄給主編，全程不離 Gemini</label>
+      <label><input type="radio" name="Q11" value="A" required /> A. 三個來源全部下載 / 截圖整理成一個 Word，再貼給 ChatGPT 寫初稿，寫完手動寄給主編</label>
+      <label><input type="radio" name="Q11" value="B" /> B. 用 Gemini 連接 Drive / Gmail / Sheets，請它讀三個來源、生成初稿、直接從對話框寄給主編，全程不離 Gemini</label>
       <label><input type="radio" name="Q11" value="C" /> C. 開三個 AI 分工：一個讀 PDF、一個轉錄音、一個寫稿，最後人工整合</label>
-      <label><input type="radio" name="Q11" value="D" /> D. 全部丟給 NotebookLM，它最擅長多來源整合</label>
+      <label><input type="radio" name="Q11" value="D" /> D. 全部上傳到 NotebookLM，它最擅長多來源整合</label>
     </div>
   </div>
 
   <div class="question" data-q="Q12">
     <p class="q-title"><span class="q-no">Q12</span> 社群編輯每週要把 IG、FB、LINE 三個平台的數據貼進同一個 Sheet 算互動率，做了快一年。她不會寫程式。哪個工具最適合幫她自動化？</p>
     <div class="options">
-      <label><input type="radio" name="Q12" value="A" required /> A. 用 ChatGPT 把每個平台的截圖丟進去問互動率</label>
+      <label><input type="radio" name="Q12" value="A" required /> A. 用 ChatGPT 把每個平台的截圖貼進去問互動率</label>
       <label><input type="radio" name="Q12" value="B" /> B. 用 Make.com 或 Zapier，視覺化拖拉串接三平台 API，不需寫程式碼</label>
       <label><input type="radio" name="Q12" value="C" /> C. 找工程師寫一個爬蟲</label>
-      <label><input type="radio" name="Q12" value="D" /> D. 用 Google Sheets 內建函式自己慢慢串</label>
+      <label><input type="radio" name="Q12" value="D" /> D. 自己花時間學 Google Apps Script 寫腳本</label>
     </div>
   </div>
 
   <div class="question" data-q="Q13">
-    <p class="q-title"><span class="q-no">Q13</span> 行銷部同事每月要做「會員問卷分析報告」，流程是：從 Google Forms 下載 csv → Excel 算各題分布 → 整理進 PPT → 把檔案存進共享 Drive 並寄 email 通知主管。她想自動化整串、又不想離開 LLM 平台。哪個做法最完整？</p>
+    <p class="q-title"><span class="q-no">Q13</span> 行銷部同事每月要做「會員問卷分析報告」，流程是：從 Google Forms 下載 csv → Excel 算各題分布 → 整理進 PPT → 把檔案存進共享 Drive 並寄 email 通知主管。她想自動化整串、不要分散在好幾個工具切換。哪個做法最完整？</p>
     <div class="options">
       <label><input type="radio" name="Q13" value="A" required /> A. 用 Gemini，它已連 Drive + Gmail，請它讀 Forms 資料、生成圖表、寫 PPT、存 Drive、寄信給主管，全程在一個對話框</label>
       <label><input type="radio" name="Q13" value="B" /> B. 用 ChatGPT 上傳 csv 請它寫 Python 腳本，本機跑完再手動傳檔案、手動寄信</label>
@@ -337,10 +339,10 @@
     </div>
     <p class="q-title"><span class="q-no">Q15</span> 你正在 Google Docs 寫一份廣告提案，文件右側有 ✦ Gemini 圖示（如圖）。你想加一段「商周讀者輪廓分析」。為什麼用側邊欄 ✦ Gemini，比另開 ChatGPT 視窗更省事？</p>
     <div class="options">
-      <label><input type="radio" name="Q15" value="A" required /> A. 開 ChatGPT 把要寫的內容描述貼進去，請它寫完再貼回 Google Docs</label>
-      <label><input type="radio" name="Q15" value="B" /> B. ✦ Gemini 側邊欄已讀文件前後文，生成後直接插入，不需手動貼回</label>
-      <label><input type="radio" name="Q15" value="C" /> C. ChatGPT 沒辦法讀 Google Docs 內容，這種任務只能用 Gemini</label>
-      <label><input type="radio" name="Q15" value="D" /> D. Gemini 模型本身比較強，這種需要前後文的工作只能用它</label>
+      <label><input type="radio" name="Q15" value="A" required /> A. 因為 Gemini 是 Google 自家工具，跟 Docs 整合的速度比較快</label>
+      <label><input type="radio" name="Q15" value="B" /> B. 因為 ✦ Gemini 已讀目前文件的前後文，生成的內容能與上下文連貫，不需手動複製貼回</label>
+      <label><input type="radio" name="Q15" value="C" /> C. 因為 ChatGPT 完全無法讀取 Google Docs 的內容，這種任務只能用 Gemini</label>
+      <label><input type="radio" name="Q15" value="D" /> D. 因為 Gemini 模型本身比 ChatGPT 強，更適合這種需要上下文的工作</label>
     </div>
   </div>
 
@@ -362,7 +364,7 @@
       <label><input type="radio" name="Q17" value="A" required /> A. 兩個都用 AI 判斷，靈活性最高</label>
       <label><input type="radio" name="Q17" value="B" /> B. 兩個都用規則設定，確保可預測性</label>
       <label><input type="radio" name="Q17" value="C" /> C. ① 用 AI（更精確）；② 用關鍵字比對（速度快）</label>
-      <label><input type="radio" name="Q17" value="D" /> D. ① 用規則（金額有明確門檻）；② 用 AI（情緒判斷需要理解語意）</label>
+      <label><input type="radio" name="Q17" value="D" /> D. ① 用規則設定；② 用 AI 判斷</label>
     </div>
   </div>
 
@@ -371,8 +373,8 @@
     <div class="options">
       <label><input type="radio" name="Q18" value="A" required /> A. 先開啟 Make.com 或 Zapier，連接三個平台的 API，看工具支援哪些功能，再決定能自動化哪些步驟</label>
       <label><input type="radio" name="Q18" value="B" /> B. 先完整記錄手動流程的每個步驟，找出可省略的環節，確認三位主管各自要看的報告格式，再挑選合適的工具</label>
-      <label><input type="radio" name="Q18" value="C" /> C. 把需求描述丟給 Claude 或 Gemini，請它推薦最適合這個情境的自動化工具與流程架構</label>
-      <label><input type="radio" name="Q18" value="D" /> D. 把現有週報截圖丟給 AI，請它自己看著辦、推薦工具並寫好腳本</label>
+      <label><input type="radio" name="Q18" value="C" /> C. 把需求描述貼給 Claude 或 Gemini，請它推薦最適合這個情境的自動化工具與流程架構</label>
+      <label><input type="radio" name="Q18" value="D" /> D. 把現有週報截圖給 AI，請它自己看著辦、推薦工具並寫好腳本</label>
     </div>
   </div>
 
@@ -408,7 +410,7 @@
       <label><input type="radio" name="Q20" value="A" required /> A. 換更新更強的 AI 模型重做一次</label>
       <label><input type="radio" name="Q20" value="B" /> B. 立刻關閉這個自動流程，全部改回人工摘要</label>
       <label><input type="radio" name="Q20" value="C" /> C. 從失敗摘要中找出共同特徵（哪類文章常出錯），重設 prompt 並補上失敗案例的範例</label>
-      <label><input type="radio" name="Q20" value="D" /> D. 把這件事丟給 AI，請 AI 自己判斷哪裡出問題</label>
+      <label><input type="radio" name="Q20" value="D" /> D. 把這件事交給 AI，請 AI 自己判斷哪裡出問題</label>
     </div>
   </div>
 
@@ -419,7 +421,7 @@
     <div class="options">
       <label><input type="radio" name="Q21" value="A" required /> A. 全部都交給 AI，減少人力成本</label>
       <label><input type="radio" name="Q21" value="B" /> B. 全部都轉給真人，AI 只做分類</label>
-      <label><input type="radio" name="Q21" value="C" /> C. 標準 FAQ（訂閱步驟、方案說明、退訂流程）全自動；讀者投訴、退款申請、內容錯誤反映需要人工介入</label>
+      <label><input type="radio" name="Q21" value="C" /> C. 依照問題類型決定：FAQ 全自動，投訴 / 退款 / 內容錯誤轉人工</label>
       <label><input type="radio" name="Q21" value="D" /> D. 依照讀者信件的字數決定：短信全自動，長信轉人工</label>
     </div>
   </div>
@@ -430,7 +432,7 @@
       <label><input type="radio" name="Q22" value="A" required /> A. 你的個人行事曆、當天的工作計畫，以及最近三個月讀過的文章清單，讓 Agent 了解你的閱讀偏好後自動篩選</label>
       <label><input type="radio" name="Q22" value="B" /> B. 你過去一個月的瀏覽紀錄和點開的新聞連結，讓 Agent 學習你的習慣，之後每天根據你的行為模式動態調整推薦</label>
       <label><input type="radio" name="Q22" value="C" /> C. 你關注的競爭媒體名單、追蹤關鍵字（如 AI 媒體、訂閱經濟、廣告市場），以及你希望的摘要格式（每則 100 字、附來源、標注重要程度）</label>
-      <label><input type="radio" name="Q22" value="D" /> D. 把你過去一年的所有閱讀紀錄、書籤、收藏全部丟給 Agent，越多越懂你</label>
+      <label><input type="radio" name="Q22" value="D" /> D. 把你過去一年的所有閱讀紀錄、書籤、收藏全部給 Agent，越多越懂你</label>
     </div>
   </div>
 
@@ -449,7 +451,7 @@
     <p class="q-title"><span class="q-no">Q24</span> 商周編輯部想讓 AI 在審稿時自動套用「商周文字風格規則」、做數據查證時自動套用「商周稽核流程」、寫專欄時自動參考「歷年案例」。問題是：每種工作要不同的規則包，每次重貼太累、全部塞同個對話又會稀釋指令焦點。怎麼做最對？</p>
     <div class="options">
       <label><input type="radio" name="Q24" value="A" required /> A. 建一個固定 Project 把所有規則打包進去，每次都從這個 Project 開對話</label>
-      <label><input type="radio" name="Q24" value="B" /> B. 打包成獨立「能力包」，AI 偵測對應任務時自動載入</label>
+      <label><input type="radio" name="Q24" value="B" /> B. 打包成獨立 Skill，AI 偵測對應任務時自動載入</label>
       <label><input type="radio" name="Q24" value="C" /> C. 寫一個超級 Prompt 自動幫你切換指令焦點</label>
       <label><input type="radio" name="Q24" value="D" /> D. 這種多套規則的需求 AI 目前做不到，還是要靠人工切換</label>
     </div>
@@ -487,8 +489,8 @@
     <p class="q-title"><span class="q-no">Q27</span> 你請 AI 查台灣媒體廣告市場的研究報告，AI 給了你如圖的分析：五個機構的市場數據、三篇研究報告的完整標題與發布年份，看起來非常正式。你的下一步是？</p>
     <div class="options">
       <label><input type="radio" name="Q27" value="A" required /> A. 直接放進你的分析報告，這麼完整的內容通常是正確的</label>
-      <label><input type="radio" name="Q27" value="B" /> B. 針對每一個機構名稱、數據來源、報告標題，逐一查核原始來源，確認都是真實存在的</label>
-      <label><input type="radio" name="Q27" value="C" /> C. 請 AI 再確認一次：「這些數據都是正確的嗎？」</label>
+      <label><input type="radio" name="Q27" value="B" /> B. 抽查至少 2-3 個關鍵機構名稱與數據，到原始官方來源確認真實存在</label>
+      <label><input type="radio" name="Q27" value="C" /> C. 請 AI 再次確認「這些數據都是正確的嗎？」，回答「是」就採用</label>
       <label><input type="radio" name="Q27" value="D" /> D. 稍微改寫讓它看起來不像 AI 生成的</label>
     </div>
   </div>
@@ -512,7 +514,7 @@
       <label><input type="radio" name="Q29" value="A" required /> A. 不需要，讀者知道是 AI 可能會覺得服務品質不夠好</label>
       <label><input type="radio" name="Q29" value="B" /> B. 只要讀者主動問「你是真人嗎」的時候再說明就好</label>
       <label><input type="radio" name="Q29" value="C" /> C. 交給法律部門決定，目前 AI 規範還沒有定論</label>
-      <label><input type="radio" name="Q29" value="D" /> D. 依照 EU AI Act 等監管趨勢，AI 身份應在互動開始時主動揭露，且讀者詢問時不得否認是 AI</label>
+      <label><input type="radio" name="Q29" value="D" /> D. AI 身份應在互動開始時主動揭露，且讀者詢問時不得否認是 AI</label>
     </div>
   </div>
 
@@ -608,6 +610,11 @@
 <footer class="page-footer">
   <p>AI Readiness Assessment · 2026</p>
 </footer>
+
+<div id="lightbox" class="lightbox" hidden>
+  <img id="lightbox-img" alt="" />
+  <button id="lightbox-close" type="button" aria-label="關閉">×</button>
+</div>
 
 <script src="script.js"></script>
 </body>

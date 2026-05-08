@@ -71,6 +71,37 @@ const submitBtn = document.getElementById('submit-btn');
 const formError = document.getElementById('form-error');
 const reportEl = document.getElementById('report');
 
+// ====== 圖片點擊放大（lightbox）======
+(function setupLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.getElementById('lightbox-close');
+  if (!lightbox || !lightboxImg || !closeBtn) return;
+
+  // 為所有題目圖片加點擊事件
+  document.querySelectorAll('.question-image img, .option-image img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt || '';
+      lightbox.hidden = false;
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function close() {
+    lightbox.hidden = true;
+    document.body.style.overflow = '';
+  }
+  closeBtn.addEventListener('click', close);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !lightbox.hidden) close();
+  });
+})();
+
 // ====== 互動：複選上限、互斥選項 ======
 form.addEventListener('change', (e) => {
   const t = e.target;
