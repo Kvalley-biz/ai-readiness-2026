@@ -653,6 +653,8 @@ textarea:focus {
 }
 
 /* ============ LIGHTBOX ============ */
+.lightbox[hidden] { display: none !important; }
+
 .lightbox {
   position: fixed;
   inset: 0;
