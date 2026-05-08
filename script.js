@@ -56,8 +56,8 @@ const LEVEL_INFO = {
   L6: { label:'會指揮',  desc:'你掌握 LLM 原生整合、MCP / Skills 等前緣能力，能指揮 Agent 跨工具協同。' },
 };
 
-// 進階工具（Type B 偵測用）
-const ADVANCED_B6 = [
+// 進階工具（Type B 偵測用，v3.6 從 B6 改 B7）
+const ADVANCED_B7 = [
   'Claude Projects或Gemini Gems',
   'Make或Zapier或n8n',
   'Prompt模板或系統提示詞',
@@ -160,19 +160,18 @@ form.addEventListener('submit', (e) => {
 function validate() {
   const errors = [];
 
-  // A 區（4 題）必填
-  ['A1','A2','A4'].forEach(name => {
+  // A 區（v3.6：3 題）
+  ['A1','A2','A3'].forEach(name => {
     if (!form.querySelector(`input[name="${name}"]:checked`)) errors.push(name);
   });
-  // A3 至少勾一個（沒在用也是一個選項）
-  if (!form.querySelector('input[name="A3"]:checked')) errors.push('A3');
 
-  // B 區（6 題）必填
+  // B 區（v3.6：7 題）
   ['B1','B3','B4','B5'].forEach(name => {
     if (!form.querySelector(`input[name="${name}"]:checked`)) errors.push(name);
   });
   if (!form.querySelector('input[name="B2"]:checked')) errors.push('B2');
-  if (!form.querySelector('input[name="B6"]:checked')) errors.push('B6');
+  if (!form.querySelector('input[name="B6"]:checked')) errors.push('B6'); // 最常用 AI 工具
+  if (!form.querySelector('input[name="B7"]:checked')) errors.push('B7'); // 進階功能
 
   // C 區 30 題
   for (let i = 1; i <= 30; i++) {
@@ -209,14 +208,14 @@ function collectAnswers() {
   const data = {
     A1: single('A1') === '其他' && other('A1') ? '其他:' + other('A1') : single('A1'),
     A2: single('A2'),
-    A3: withOther(multi('A3'), 'A3'),
-    A4: single('A4'),
+    A3: single('A3') === '其他' && other('A3') ? '其他:' + other('A3') : single('A3'), // v3.6：原 A4 上來
     B1: single('B1'),
     B2: multi('B2'),
-    B3: parseInt(single('B3'), 10), // v3: 1–5 自評（合併 v2 B3 行為 + B4 自評）
-    B4: single('B4'),                // v3 新題：最受挫場景（不計分）
+    B3: parseInt(single('B3'), 10),
+    B4: single('B4'),
     B5: single('B5'),
-    B6: multi('B6'),
+    B6: withOther(multi('B6'), 'B6'), // v3.6：原 A3 移來（最常用 AI 工具）
+    B7: multi('B7'),                   // v3.6：原 B6（進階功能）
     D1: single('D1') === '其他' && other('D1') ? '其他:' + other('D1') : single('D1'),
     D2: withOther(multi('D2'), 'D2'),
     D3: (fd.get('D3') || '').trim(),
@@ -274,17 +273,17 @@ function computeScore(data) {
     gapText = `你低估了自己——你已經達到「${highestLevel.code} ${highestLevel.label}」的層次，比你以為的強很多。`;
   }
 
-  // Type 判定
-  const advancedB6Count = data.B6.filter(v => ADVANCED_B6.includes(v)).length;
-  const noneSelected = data.B6.includes('都沒用過');
+  // Type 判定（v3.6：用 B7 進階工具勾選）
+  const advancedCount = data.B7.filter(v => ADVANCED_B7.includes(v)).length;
+  const noneSelected = data.B7.includes('都沒用過');
 
   let type;
-  if (highLevelStrong >= 8 && advancedB6Count >= 2 && data.B3 <= 3) {
-    type = 'TypeB'; // 隱藏高手：L4-L6 累計 ≥8 + 用過進階工具 + 自評不高
+  if (highLevelStrong >= 8 && advancedCount >= 2 && data.B3 <= 3) {
+    type = 'TypeB';
   } else if (levelScores[0].score < 3 || noneSelected) {
-    type = 'TypeC'; // 觀望 / 抗拒：L1 都不到 3 分，或勾「都沒用過」
+    type = 'TypeC';
   } else {
-    type = 'TypeA'; // 基礎應用者
+    type = 'TypeA';
   }
 
   return { dimScores, levelScores, highestLevel, gap, gapText, type };
@@ -388,14 +387,14 @@ function buildPayload(data, score) {
     timestamp: new Date().toISOString(),
     A1_部門: data.A1,
     A2_工作性質: data.A2,
-    A3_AI工具: data.A3.join('|'),
-    A4_耗時階段: data.A4,
+    A3_耗時階段: data.A3,
     B1_使用頻率: data.B1,
     B2_主要用途: data.B2.join('|'),
     B3_綜合自評: data.B3,
     B4_最受挫場景: data.B4,
     B5_遇問題處理: data.B5,
-    B6_進階功能: data.B6.join('|'),
+    B6_最常用工具: data.B6.join('|'),
+    B7_進階功能: data.B7.join('|'),
     // 六維（雷達圖用）
     維_D1_指令設計: dimMap.D1,
     維_D2_數據應用: dimMap.D2,
