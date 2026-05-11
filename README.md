@@ -1,10 +1,27 @@
-# 商周 AI 即戰力評測
+# 商周 AI Workshop｜課前暖身問卷
 
-商業周刊員工 AI 能力評測網頁（44 題 + 六維雷達 + L1–L6 層次）。
+從 `ai-readiness-2026-noC/` 衍生的第三版，題目重寫成「課前暖身」風格，**目的是給講師掌握全員 AI 使用現況與需求**，不是評測能力。
 
-- 前端：純 HTML / CSS / JavaScript（無框架）
-- 圖表：Chart.js
-- 後端：Google Apps Script → Google Sheets
-- 部署：Vercel
+## 結構
 
-詳細規格與題目維護於私有 repo `Kvalley-1/shang-zhou-ai-workflow-training`。
+- **A 區（1 題）**：部門
+- **B 區（6 題）**：Q1 使用頻率 / Q2 最常用 AI 工具（最多 3 個）/ Q3 最大幫助 / Q4 最常使用內容 / Q5 最大困擾 / Q6 最希望 Workshop 幫忙的事
+- **C 區（L1–L6 六階段）**：每階段勾選「我會這個」＋ 從清單選使用工具（全選填）
+
+L1–L6 對應 Jimmy 人機協作框架前六層（L7 自主授權對 Workshop 受眾過於進階，省略）。
+
+## 結果頁
+
+只顯示 Q6（最希望 Workshop 幫忙的事）的回顯，無計分、無雷達圖。
+
+## 後端
+
+預設停用（`APPS_SCRIPT_URL = ''`）。要收資料請另建一份 Apps Script + Sheet，並把 Web App URL 貼進 `script.js`。
+
+## 與其他兩版的關係
+
+| 版本 | 題數 | 用途 | 結果頁 |
+|---|---|---|---|
+| `ai-readiness-2026/`（線上部署） | 43 | 能力評測 ＋ 需求調查 | 五大能力雷達圖 + L1–L6 報告 |
+| `ai-readiness-2026-noC/`（本地） | 13 | 純需求調查 | 自評回顯 |
+| `ai-readiness-2026-workshop/`（本地，這版） | A1 + Q1–Q6 + L1–L6 階段表 | Workshop 課前暖身 | 需求回顯 |

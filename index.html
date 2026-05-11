@@ -3,19 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>商周 AI 即戰力評測</title>
+<title>商周 AI 能力調查問卷</title>
 <link rel="stylesheet" href="style.css" />
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
 <header class="page-header">
-  <span class="brand-tag">AI Readiness Assessment</span>
-  <h1>商周 <span class="accent">AI 即戰力</span> 評測</h1>
-  <p class="subtitle">這是一份<strong>部門需求調查</strong>，幫人資部規劃今年的 AI 學習資源。<br/>
-  你的單題回答<strong>不會</strong>與你的部門 / 職稱比對，只看全公司整體分布。<br/>
-  填完你會看到自己在六個面向上的相對位置 —— 沒有及格分數、沒有排名，也不會送主管。</p>
-  <p class="meta">預估 20–25 分鐘<span class="dot"></span>共 43 題<span class="dot"></span>誠實答最有用</p>
+  <span class="brand-tag">AI READINESS SURVEY</span>
+  <h1>商周 <span class="accent">AI 能力</span> 調查問卷</h1>
+  <p class="subtitle">協助人資部門了解大家目前 AI 使用情況與工作需求。<br/>
+  <strong>沒有標準答案，也不影響任何評估</strong>，請放心填寫。</p>
+  <p class="meta">預估 5–8 分鐘</p>
 </header>
 
 <main>
@@ -26,578 +24,224 @@
   <h2>A. 基本資料</h2>
 
   <div class="question" data-q="A1">
-    <p class="q-title"><span class="q-no">A1</span> 你在哪個部門？</p>
+    <p class="q-title"><span class="q-no">A1</span> 您所在的部門：</p>
     <div class="options">
-      <label><input type="radio" name="A1" value="編採部" required /> 編採部（記者、文字編輯）</label>
-      <label><input type="radio" name="A1" value="數位內容部" /> 數位內容部（社群、SEO、影音）</label>
-      <label><input type="radio" name="A1" value="廣告業務部" /> 廣告業務部</label>
-      <label><input type="radio" name="A1" value="行銷部" /> 行銷部</label>
-      <label><input type="radio" name="A1" value="訂閱電商部" /> 訂閱 / 電商部</label>
-      <label><input type="radio" name="A1" value="行政人資財務" /> 行政 / 人資 / 財務</label>
-      <label><input type="radio" name="A1" value="資訊部" /> 資訊部</label>
+      <label><input type="radio" name="A1" value="商周編輯處" /> 商周編輯處</label>
+      <label><input type="radio" name="A1" value="多媒體中心" /> 多媒體中心</label>
+      <label><input type="radio" name="A1" value="數位平台中心" /> 數位平台中心</label>
+      <label><input type="radio" name="A1" value="整合傳播處" /> 整合傳播處</label>
+      <label><input type="radio" name="A1" value="會員運營中心" /> 會員運營中心</label>
+      <label><input type="radio" name="A1" value="網商中心" /> 網商中心</label>
+      <label><input type="radio" name="A1" value="出版處" /> 出版處</label>
+      <label><input type="radio" name="A1" value="顧客運營處" /> 顧客運營處</label>
+      <label><input type="radio" name="A1" value="健康事業處" /> 健康事業處</label>
+      <label><input type="radio" name="A1" value="數據中心" /> 數據中心</label>
+      <label><input type="radio" name="A1" value="財務部" /> 財務部</label>
       <label class="other"><input type="radio" name="A1" value="其他" /> 其他：<input type="text" name="A1_other" class="other-input" placeholder="請填寫" /></label>
-    </div>
-  </div>
-
-  <div class="question" data-q="A2">
-    <p class="q-title"><span class="q-no">A2</span> 你的工作性質最接近哪一類？</p>
-    <div class="options">
-      <label><input type="radio" name="A2" value="文字創作採訪" required /> 以文字創作 / 採訪為主</label>
-      <label><input type="radio" name="A2" value="數據分析報表" /> 以數據分析 / 報表為主</label>
-      <label><input type="radio" name="A2" value="客戶溝通業務" /> 以客戶溝通 / 業務推進為主</label>
-      <label><input type="radio" name="A2" value="視覺影音製作" /> 以視覺 / 影音製作為主</label>
-      <label><input type="radio" name="A2" value="行政流程管理" /> 以行政 / 流程管理為主</label>
-      <label><input type="radio" name="A2" value="混合型" /> 混合型</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="A3">
-    <p class="q-title"><span class="q-no">A3</span> 你目前工作中，最花時間的是哪個階段？</p>
-    <div class="options">
-      <label><input type="radio" name="A3" value="採訪前期" required /> 採訪前期（研究背景、聯繫受訪者、準備問題）</label>
-      <label><input type="radio" name="A3" value="採訪執行" /> 採訪執行（逐字稿整理、會議記錄）</label>
-      <label><input type="radio" name="A3" value="寫作編稿" /> 寫作 / 編稿（初稿、改稿、主編回饋處理）</label>
-      <label><input type="radio" name="A3" value="發布後追蹤" /> 發布後追蹤（社群推廣、數據監測、讀者互動）</label>
-      <label><input type="radio" name="A3" value="廣告業務流程" /> 廣告 / 業務流程（提案、執行、對帳）</label>
-      <label><input type="radio" name="A3" value="資料分析報表" /> 資料分析 / 報表製作</label>
-      <label><input type="radio" name="A3" value="行政會議協調" /> 行政 / 會議 / 跨部門協調</label>
-      <label><input type="radio" name="A3" value="視覺影音製作" /> 視覺 / 影音製作（剪輯、設計）</label>
-      <label class="other"><input type="radio" name="A3" value="其他" /> 其他：<input type="text" name="A3_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 </section>
 
 <!-- ========== B. AI 使用現況 ========== -->
 <section class="block" data-block="B">
-  <h2>B. AI 使用現況</h2>
+  <h2>B. AI 使用現況與需求</h2>
 
-  <div class="question" data-q="B1">
-    <p class="q-title"><span class="q-no">B1</span> 你在工作上使用 AI 工具的頻率？</p>
+  <div class="question" data-q="Q1">
+    <p class="q-title"><span class="q-no">Q1</span> 您目前使用 AI 工具的頻率為何？</p>
     <div class="options">
-      <label><input type="radio" name="B1" value="每天" required /> 每天都用</label>
-      <label><input type="radio" name="B1" value="每週2-3次" /> 每週 2–3 次</label>
-      <label><input type="radio" name="B1" value="偶爾" /> 偶爾用（每月 1–2 次）</label>
-      <label><input type="radio" name="B1" value="幾乎不用" /> 幾乎不用</label>
-      <label><input type="radio" name="B1" value="從來沒用過" /> 從來沒用過</label>
+      <label><input type="radio" name="Q1" value="幾乎每天" /> 幾乎每天都會使用</label>
+      <label class="other"><input type="radio" name="Q1" value="每週" /> 每週會使用 <input type="number" name="Q1_count" min="1" max="7" class="other-input inline-num" placeholder="天數" /> 天</label>
+      <label><input type="radio" name="Q1" value="很少" /> 很少使用</label>
+      <label><input type="radio" name="Q1" value="沒用過" /> 沒有使用過</label>
     </div>
   </div>
 
-  <div class="question" data-q="B2">
-    <p class="q-title"><span class="q-no">B2</span> 你用 AI 最主要做哪三件事？<span class="hint">（最多選 3）</span></p>
+  <div class="question" data-q="Q2">
+    <p class="q-title"><span class="q-no">Q2</span> 您目前最常用的 AI 工具是？<span class="hint">（可複選，最多 3 個）</span></p>
     <div class="options">
-      <label><input type="checkbox" name="B2" value="文字撰寫改稿" data-max="3" /> 文字撰寫 / 改稿</label>
-      <label><input type="checkbox" name="B2" value="摘要整理資料" data-max="3" /> 摘要 / 整理資料</label>
-      <label><input type="checkbox" name="B2" value="翻譯" data-max="3" /> 翻譯</label>
-      <label><input type="checkbox" name="B2" value="圖像生成" data-max="3" /> 圖像生成</label>
-      <label><input type="checkbox" name="B2" value="程式自動化" data-max="3" /> 程式 / 自動化</label>
-      <label><input type="checkbox" name="B2" value="資料分析" data-max="3" /> 資料分析</label>
-      <label><input type="checkbox" name="B2" value="搜尋研究" data-max="3" /> 搜尋 / 研究</label>
-      <label><input type="checkbox" name="B2" value="社群貼文製作" data-max="3" /> 社群貼文製作</label>
-      <label><input type="checkbox" name="B2" value="製作簡報報告" data-max="3" /> 製作簡報 / 報告</label>
-      <label><input type="checkbox" name="B2" value="沒在用AI" data-exclusive="true" /> 我沒有在用 AI</label>
+      <label><input type="checkbox" name="Q2" value="ChatGPT" data-max="3" /> ChatGPT</label>
+      <label><input type="checkbox" name="Q2" value="Claude" data-max="3" /> Claude</label>
+      <label><input type="checkbox" name="Q2" value="Gemini" data-max="3" /> Gemini</label>
+      <label><input type="checkbox" name="Q2" value="Copilot" data-max="3" /> Copilot</label>
+      <label><input type="checkbox" name="Q2" value="Perplexity" data-max="3" /> Perplexity</label>
+      <label><input type="checkbox" name="Q2" value="NotebookLM" data-max="3" /> NotebookLM</label>
+      <label><input type="checkbox" name="Q2" value="Notion AI" data-max="3" /> Notion AI</label>
+      <label><input type="checkbox" name="Q2" value="Canva AI" data-max="3" /> Canva AI</label>
+      <label><input type="checkbox" name="Q2" value="Midjourney" data-max="3" /> Midjourney / 圖片生成工具</label>
+      <label><input type="checkbox" name="Q2" value="AI影音" data-max="3" /> AI 影音工具（剪映、Runway 等）</label>
+      <label><input type="checkbox" name="Q2" value="公司內部AI" data-max="3" /> 公司內部 AI 工具</label>
+      <label><input type="checkbox" name="Q2" value="尚未使用" data-exclusive="true" /> 還沒用過 AI 工具</label>
+      <label class="other"><input type="checkbox" name="Q2" value="其他" data-max="3" /> 其他：<input type="text" name="Q2_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 
-  <div class="question" data-q="B3">
-    <p class="q-title"><span class="q-no">B3</span> 哪一段最像你跟 AI 的相處狀態？</p>
+  <div class="question" data-q="Q3">
+    <p class="q-title"><span class="q-no">Q3</span> 您目前最常使用 AI 的工作內容是？</p>
+    <p class="q-hint">例如：寫信、整理會議、做簡報、生成標題、翻譯、查資料、影音腳本等。</p>
+    <textarea name="Q3" rows="3" placeholder="自由填答"></textarea>
+  </div>
+
+  <div class="question" data-q="Q4">
+    <p class="q-title"><span class="q-no">Q4</span> 您目前在使用 AI 時，最大的困擾或卡點是？<span class="hint">（可複選，最多 3 個）</span></p>
     <div class="options">
-      <label><input type="radio" name="B3" value="1" required /> 我幾乎不用 AI，工作上沒怎麼接觸</label>
-      <label><input type="radio" name="B3" value="2" /> 偶爾會打問題進去，看到答案就直接用，沒在調整</label>
-      <label><input type="radio" name="B3" value="3" /> 會寫比較具體的指令，不滿意就重做幾次直到可以用</label>
-      <label><input type="radio" name="B3" value="4" /> 會把常用的指令存成模板，可以完成多步驟的任務</label>
-      <label><input type="radio" name="B3" value="5" /> AI 已是我工作的一部分，有時還會幫同事或團隊建立流程</label>
+      <label><input type="checkbox" name="Q4" value="不知道工具" data-max="3" /> 不知道有哪些工具可以用</label>
+      <label><input type="checkbox" name="Q4" value="不會下指令" data-max="3" /> 不知道怎麼下指令(Prompt)</label>
+      <label><input type="checkbox" name="Q4" value="結果不準" data-max="3" /> 結果不夠精準</label>
+      <label><input type="checkbox" name="Q4" value="不會導入工作" data-max="3" /> 不知道怎麼真正導入工作</label>
+      <label><input type="checkbox" name="Q4" value="正確性" data-max="3" /> 擔心資訊正確性</label>
+      <label><input type="checkbox" name="Q4" value="資料安全" data-max="3" /> 擔心資料安全</label>
+      <label><input type="checkbox" name="Q4" value="沒時間研究" data-max="3" /> 沒有時間研究</label>
+      <label><input type="checkbox" name="Q4" value="沒困擾" data-exclusive="true" /> 目前沒有特別困擾</label>
+      <label class="other"><input type="checkbox" name="Q4" value="其他" data-max="3" /> 其他：<input type="text" name="Q4_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 
-  <div class="question" data-q="B4">
-    <p class="q-title"><span class="q-no">B4</span> 過去三個月你用 AI 工作，遇到最常見的狀況是哪一種？</p>
+  <div class="question" data-q="Q5">
+    <p class="q-title"><span class="q-no">Q5</span> 如果這次 Workshop 能幫助您一件事，您最希望是？</p>
     <div class="options">
-      <label><input type="radio" name="B4" value="答案看似對其實錯" required /> AI 給的答案看起來對，但仔細看就是錯的（事實錯誤、資料造假）</label>
-      <label><input type="radio" name="B4" value="不會下指令就放棄" /> 不知道怎麼下指令，試了幾次都得不到要的東西就放棄</label>
-      <label><input type="radio" name="B4" value="風格語氣不對" /> AI 寫得出來，但風格 / 語氣完全不像我的工作環境要的</label>
-      <label><input type="radio" name="B4" value="校對時間比自己寫久" /> 寫指令 + 校對 AI 結果的時間，比我自己直接做還久</label>
-      <label><input type="radio" name="B4" value="資安規定限制" /> 公司資安規定限制太多，能用的功能不多 / 不敢上傳資料</label>
-      <label><input type="radio" name="B4" value="找不到適合工具" /> 想做的事 AI 好像可以，但找不到適合的工具，怕踩雷</label>
-      <label><input type="radio" name="B4" value="沒用過沒受挫" /> 我沒怎麼用過 AI，沒有特別感受</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="B5">
-    <p class="q-title"><span class="q-no">B5</span> 在工作上遇到 AI 相關問題，你通常怎麼處理？</p>
-    <div class="options">
-      <label><input type="radio" name="B5" value="自己摸索" required /> 自己摸索直到解決</label>
-      <label><input type="radio" name="B5" value="直接問AI" /> 直接問 AI 怎麼解（讓它教我）</label>
-      <label><input type="radio" name="B5" value="問同事" /> 找有在用 AI 的同事請教</label>
-      <label><input type="radio" name="B5" value="找教學" /> 去網路上找教學</label>
-      <label><input type="radio" name="B5" value="放棄" /> 放棄，繼續用原本的方法</label>
-      <label><input type="radio" name="B5" value="不適用" /> 這個問題不適用（我不用 AI）</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="B6">
-    <p class="q-title"><span class="q-no">B6</span> 你工作上最常用的 AI 工具是？<span class="hint">（複選，最多 3 個）</span></p>
-    <div class="options">
-      <label><input type="checkbox" name="B6" value="ChatGPT" /> ChatGPT</label>
-      <label><input type="checkbox" name="B6" value="Claude" /> Claude</label>
-      <label><input type="checkbox" name="B6" value="Gemini" /> Gemini</label>
-      <label><input type="checkbox" name="B6" value="Copilot" /> Copilot（Microsoft）</label>
-      <label><input type="checkbox" name="B6" value="Midjourney" /> Midjourney / AI 圖像工具</label>
-      <label><input type="checkbox" name="B6" value="Canva AI" /> Canva AI</label>
-      <label class="other"><input type="checkbox" name="B6" value="其他" /> 其他：<input type="text" name="B6_other" class="other-input" placeholder="請填寫" /></label>
-      <label><input type="checkbox" name="B6" value="沒有使用" data-exclusive="true" /> 我沒有在使用任何 AI 工具</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="B7">
-    <p class="q-title"><span class="q-no">B7</span> 以下哪些 AI 進階功能你曾經實際操作過？<span class="hint">（複選）</span></p>
-    <div class="options">
-      <label><input type="checkbox" name="B7" value="Gemini Workspace側邊欄" /> Gemini for Workspace 側邊欄（在 Google Docs / Gmail / Sheets 直接呼叫 Gemini）</label>
-      <label><input type="checkbox" name="B7" value="Claude Projects或Gemini Gems" /> Claude Projects 或 Gemini Gems（上傳文件建立知識庫的自訂 AI 助手）</label>
-      <label><input type="checkbox" name="B7" value="NotebookLM" /> NotebookLM（上傳資料來源，對著資料問答、生成摘要）</label>
-      <label><input type="checkbox" name="B7" value="Make或Zapier或n8n" /> Make.com、Zapier 或 n8n（無程式碼自動化串接不同工具的平台）</label>
-      <label><input type="checkbox" name="B7" value="Prompt模板或系統提示詞" /> Prompt 模板庫或系統提示詞設計（為特定工作建立可重複使用的指令框架）</label>
-      <label><input type="checkbox" name="B7" value="AI圖像生成" /> AI 圖像生成（Midjourney、Firefly、Adobe AI、DALL-E）</label>
-      <label><input type="checkbox" name="B7" value="AI語音轉文字" /> AI 語音轉文字（Whisper、Otter.ai、Fireflies.ai）</label>
-      <label><input type="checkbox" name="B7" value="AI Agent工具" /> Manus、Cursor、Codex、Devin 等 AI Agent 工具（讓 AI 自己完成多步驟任務）</label>
-      <label><input type="checkbox" name="B7" value="聽過沒實際用過" /> 上面有幾個我聽過，但沒實際用過</label>
-      <label><input type="checkbox" name="B7" value="都沒用過" data-exclusive="true" /> 以上我都沒用過、也沒聽過</label>
+      <label><input type="radio" name="Q5" value="Prompt寫法" /> 學會 AI Prompt 寫法</label>
+      <label><input type="radio" name="Q5" value="找適合工具" /> 找到適合自己工作的 AI 工具</label>
+      <label><input type="radio" name="Q5" value="最新應用" /> 了解 AI 最新應用</label>
+      <label><input type="radio" name="Q5" value="提升效率" /> 提升工作效率</label>
+      <label><input type="radio" name="Q5" value="部門案例" /> 學習部門實際案例</label>
+      <label><input type="radio" name="Q5" value="工作流程" /> 了解 AI 如何改變工作流程</label>
+      <label class="other"><input type="radio" name="Q5" value="其他" /> 其他：<input type="text" name="Q5_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 </section>
 
-<!-- ========== C. 能力情境測驗（30 題）========== -->
+<!-- ========== C. 人機協作七階段 ========== -->
 <section class="block" data-block="C">
-  <h2>C. 能力情境測驗</h2>
-  <p class="block-intro">沒有「最聰明的答案」，只有「在實際工作中最有效的做法」。</p>
+  <h2>C. 下列哪些事您目前會做？</h2>
+  <p class="block-intro">以下由淺到深，請勾選您「實際在工作中會做」的項目，並選擇使用工具。沒有的留白即可。</p>
 
-  <h3>第一部分：AI 指令設計</h3>
-
-  <div class="question" data-q="Q01">
-    <p class="q-title"><span class="q-no">Q01</span> 主管說「用 AI 整理一下今天的晨報」，你第一次使用 AI，不確定從哪裡開始。以下哪個做法最合適？</p>
-    <div class="options">
-      <label><input type="radio" name="Q01" value="A" required /> A. 在 ChatGPT 輸入：「整理晨報」，看看出來什麼</label>
-      <label><input type="radio" name="Q01" value="B" /> B. 列出今天主要標題給 ChatGPT，要求依重要程度排序、每則 50 字摘要</label>
-      <label><input type="radio" name="Q01" value="C" /> C. 先去問身邊有用過 AI 整理新聞的同事，看看他們怎麼下指令</label>
-      <label><input type="radio" name="Q01" value="D" /> D. 去 YouTube 搜「如何用 AI 整理新聞」的教學影片再來做</label>
+  <div class="question level-question" data-q="L1">
+    <p class="q-title"><span class="q-no">L1</span> 我會用 AI 對話、問問題、查資料</p>
+    <p class="q-hint">例：請 ChatGPT 想標題、解釋一個概念、整理會議重點。</p>
+    <label class="level-check"><input type="checkbox" name="L1_used" value="1" /> 我會這個</label>
+    <div class="level-tools options">
+      <p class="tools-label">使用工具（可複選）</p>
+      <label><input type="checkbox" name="L1_tool" value="ChatGPT" /> ChatGPT</label>
+      <label><input type="checkbox" name="L1_tool" value="Claude" /> Claude</label>
+      <label><input type="checkbox" name="L1_tool" value="Gemini" /> Gemini</label>
+      <label><input type="checkbox" name="L1_tool" value="Copilot" /> Copilot</label>
+      <label><input type="checkbox" name="L1_tool" value="Perplexity" /> Perplexity</label>
+      <label class="other"><input type="checkbox" name="L1_tool" value="其他" /> 其他：<input type="text" name="L1_tool_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 
-  <div class="question" data-q="Q02">
-    <p class="q-title"><span class="q-no">Q02</span> 你請 AI 幫你把採訪逐字稿整理成報導，但 AI 給的版本語氣太死板、太學術。你的下一個指令是？</p>
-    <div class="options">
-      <label><input type="radio" name="Q02" value="A" required /> A. 「重新寫一次，這次語氣要更自然、不要這麼書面」</label>
-      <label><input type="radio" name="Q02" value="B" /> B. 先換一個 AI 模型試試，可能不同模型對中文語氣的掌握不同</label>
-      <label><input type="radio" name="Q02" value="C" /> C. 「用《商業周刊》封面故事語氣重寫，每段 80 字內、開頭具體場景帶入」</label>
-      <label><input type="radio" name="Q02" value="D" /> D. 「讓這篇變得更有趣一點，更能吸引讀者注意」</label>
+  <div class="question level-question" data-q="L2">
+    <p class="q-title"><span class="q-no">L2</span> 我會給 AI 比較完整的指令（含背景、目標、限制）</p>
+    <p class="q-hint">例：「請以商周風格、50 字內幫我重寫這段，重點放在 X、語氣不要太書面」。</p>
+    <label class="level-check"><input type="checkbox" name="L2_used" value="1" /> 我會這個</label>
+    <div class="level-tools options">
+      <p class="tools-label">使用工具（可複選）</p>
+      <label><input type="checkbox" name="L2_tool" value="ChatGPT" /> ChatGPT</label>
+      <label><input type="checkbox" name="L2_tool" value="Claude" /> Claude</label>
+      <label><input type="checkbox" name="L2_tool" value="Gemini" /> Gemini</label>
+      <label><input type="checkbox" name="L2_tool" value="Copilot" /> Copilot</label>
+      <label class="other"><input type="checkbox" name="L2_tool" value="其他" /> 其他：<input type="text" name="L2_tool_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 
-  <div class="question" data-q="Q03">
-    <p class="q-title"><span class="q-no">Q03</span> 你要寫一篇產業分析，手上有三份資料：PDF 研究報告、Excel 讀者調查數據、主管的口語補充說明。你要怎麼讓 AI 整合分析？</p>
-    <div class="options">
-      <label><input type="radio" name="Q03" value="A" required /> A. 把三份資料合併成一個檔案後一次貼給 AI，由 AI 自己決定處理順序與方式</label>
-      <label><input type="radio" name="Q03" value="B" /> B. 只給 AI 最重要的那份 PDF，其他自己讀</label>
-      <label><input type="radio" name="Q03" value="C" /> C. 讓 AI 先決定哪份資料最重要，再處理那份</label>
-      <label><input type="radio" name="Q03" value="D" /> D. 先分別摘要每份重點，再讓 AI 交叉比對找洞察</label>
+  <div class="question level-question" data-q="L3">
+    <p class="q-title"><span class="q-no">L3</span> 我會在多個 AI 工具間搬資料、組合產出</p>
+    <p class="q-hint">例：用 NotebookLM 讀完 PDF → 把摘要丟給 Claude 寫成報導；或自訂 GPT 整合搜尋 + 改寫。</p>
+    <label class="level-check"><input type="checkbox" name="L3_used" value="1" /> 我會這個</label>
+    <div class="level-tools options">
+      <p class="tools-label">使用工具（可複選）</p>
+      <label><input type="checkbox" name="L3_tool" value="NotebookLM" /> NotebookLM</label>
+      <label><input type="checkbox" name="L3_tool" value="Perplexity" /> Perplexity</label>
+      <label><input type="checkbox" name="L3_tool" value="自訂GPT" /> ChatGPT 自訂 GPT</label>
+      <label><input type="checkbox" name="L3_tool" value="Claude Projects" /> Claude Projects</label>
+      <label><input type="checkbox" name="L3_tool" value="Gemini Gems" /> Gemini Gems</label>
+      <label class="other"><input type="checkbox" name="L3_tool" value="其他" /> 其他：<input type="text" name="L3_tool_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 
-  <div class="question" data-q="Q04">
-    <p class="q-title"><span class="q-no">Q04</span> 你需要 AI 幫你寫十篇不同主題的 IG 貼文，試了三次語氣都跟商周品牌調性差很遠。同事建議你「給幾個例子讓它學」。以下哪個做法最有效？</p>
-    <div class="options">
-      <label><input type="radio" name="Q04" value="A" required /> A. 附上一篇符合商周語氣的舊貼文，告訴 AI「參考這篇的語氣和結構寫」</label>
-      <label><input type="radio" name="Q04" value="B" /> B. 在指令最後加上「語氣要符合商周品牌風格、不要太網路」</label>
-      <label><input type="radio" name="Q04" value="C" /> C. 換一個更新的 AI 工具試試，例如 Claude 或 Gemini</label>
-      <label><input type="radio" name="Q04" value="D" /> D. 請主管重新定義什麼是商周品牌的文字風格，給一份書面準則</label>
+  <div class="question level-question" data-q="L4">
+    <p class="q-title"><span class="q-no">L4</span> 我會設計觸發式的自動工作流，讓流程定時或自動跑</p>
+    <p class="q-hint">例：用 Make / n8n / Zapier 把「每天抓新聞 → AI 摘要 → 寄到群組」串成自動流程，人只看結果。</p>
+    <label class="level-check"><input type="checkbox" name="L4_used" value="1" /> 我會這個</label>
+    <div class="level-tools options">
+      <p class="tools-label">使用工具（可複選）</p>
+      <label><input type="checkbox" name="L4_tool" value="Make" /> Make</label>
+      <label><input type="checkbox" name="L4_tool" value="n8n" /> n8n</label>
+      <label><input type="checkbox" name="L4_tool" value="Zapier" /> Zapier</label>
+      <label><input type="checkbox" name="L4_tool" value="Power Automate" /> Power Automate</label>
+      <label><input type="checkbox" name="L4_tool" value="Apps Script" /> Apps Script</label>
+      <label class="other"><input type="checkbox" name="L4_tool" value="其他" /> 其他：<input type="text" name="L4_tool_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 
-  <div class="question" data-q="Q05">
-    <p class="q-title"><span class="q-no">Q05</span> 編輯主管每次讓 AI 幫忙改標題，都要重新解釋商周的標題規則（12 字以內、動詞開頭、不用問號）。她想省掉這個重複動作。你建議她怎麼做？</p>
-    <div class="options">
-      <label><input type="radio" name="Q05" value="A" required /> A. 把標題規則存成備忘錄或 Word 檔，每次要改標題前打開複製，貼進對話框的第一行</label>
-      <label><input type="radio" name="Q05" value="B" /> B. 每次開啟新對話，先把規則說明貼在最前面，確認 AI 已讀取規則後再開始請它改標題</label>
-      <label><input type="radio" name="Q05" value="C" /> C. 這是 AI 目前的記憶限制，跨對話無法保留設定，只能靠每次手動輸入，無法根本解決</label>
-      <label><input type="radio" name="Q05" value="D" /> D. 在 Gemini Gems 或 Claude Projects 設定系統提示詞，把商周標題規則內建，之後每次對話自動套用</label>
+  <div class="question level-question" data-q="L5">
+    <p class="q-title"><span class="q-no">L5</span> 我會用自然語言開發小型應用（Vibe Coding）</p>
+    <p class="q-hint">例：用 Cursor、Claude Code、Lovable、v0 等工具，直接靠對話寫出一個小 Web App、桌面工具或表單。</p>
+    <label class="level-check"><input type="checkbox" name="L5_used" value="1" /> 我會這個</label>
+    <div class="level-tools options">
+      <p class="tools-label">使用工具（可複選）</p>
+      <label><input type="checkbox" name="L5_tool" value="ChatGPT Canvas" /> ChatGPT Canvas</label>
+      <label><input type="checkbox" name="L5_tool" value="Gemini Canvas" /> Gemini Canvas</label>
+      <label><input type="checkbox" name="L5_tool" value="Google AI Studio" /> Google AI Studio</label>
+      <label><input type="checkbox" name="L5_tool" value="Cursor" /> Cursor</label>
+      <label><input type="checkbox" name="L5_tool" value="Windsurf" /> Windsurf</label>
+      <label><input type="checkbox" name="L5_tool" value="Claude Code" /> Claude Code</label>
+      <label><input type="checkbox" name="L5_tool" value="Codex" /> Codex（OpenAI）</label>
+      <label><input type="checkbox" name="L5_tool" value="Lovable" /> Lovable</label>
+      <label><input type="checkbox" name="L5_tool" value="v0" /> v0</label>
+      <label><input type="checkbox" name="L5_tool" value="Bolt" /> Bolt</label>
+      <label><input type="checkbox" name="L5_tool" value="Replit Agent" /> Replit Agent</label>
+      <label class="other"><input type="checkbox" name="L5_tool" value="其他" /> 其他：<input type="text" name="L5_tool_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 
-  <h3>第二部分：AI 數據應用</h3>
-  <p class="part-intro">這幾題情境主要是「面對數據圖表時的決策」，不論你工作上有沒有常看數據，請代入「主管丟一份 Excel 給你」的場景。</p>
-
-  <div class="question" data-q="Q06">
-    <div class="question-image">
-      <img src="img/img-q06-excel-articles.png" alt="文章成效追蹤資料表" />
-    </div>
-    <p class="q-title"><span class="q-no">Q06</span> 你有一份如圖的 Excel，記錄了本季 60 篇文章的標題、發布日期、點擊數。你想讓 AI 幫你找出哪類文章點擊最高。你應該怎麼做？</p>
-    <div class="options">
-      <label><input type="radio" name="Q06" value="A" required /> A. 直接問 AI：「哪類文章點擊最高？」什麼都不附</label>
-      <label><input type="radio" name="Q06" value="B" /> B. 請資訊部門先幫你整理成分析報告</label>
-      <label><input type="radio" name="Q06" value="C" /> C. 先手動算各類文章的平均點擊數，再問 AI 解讀</label>
-      <label><input type="radio" name="Q06" value="D" /> D. 把 Excel 上傳或貼進去，同時說明你想分析的面向（文章類型、標題特徵、發布時段）</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q07">
-    <div class="question-image">
-      <img src="img/img-q07-traffic-comparison.png" alt="流量比較表" />
-    </div>
-    <p class="q-title"><span class="q-no">Q07</span> 如圖，這週一篇文章的網路流量比上週前三名都低很多，主管要你分析原因。你準備怎麼讓 AI 幫你？</p>
-    <div class="options">
-      <label><input type="radio" name="Q07" value="A" required /> A. 請 AI 比較這篇和上週前三的差異（標題、發布時間、主題），找影響因素</label>
-      <label><input type="radio" name="Q07" value="B" /> B. 直接問 AI：「為什麼這篇文章流量下滑？請列出可能原因」</label>
-      <label><input type="radio" name="Q07" value="C" /> C. 讓 AI 列出所有文章流量下滑的可能原因，再從中找適用的</label>
-      <label><input type="radio" name="Q07" value="D" /> D. 請 AI 預測這篇文章下週的流量走勢，再決定要不要做 SEO</label>
+  <div class="question level-question" data-q="L6">
+    <p class="q-title"><span class="q-no">L6</span> 我會設計多個 AI Agent 分工協作完成複雜任務</p>
+    <p class="q-hint">例：一個 Agent 收資料 → 另一個分析 → 第三個寫報告，編排執行順序、設好交接條件。</p>
+    <label class="level-check"><input type="checkbox" name="L6_used" value="1" /> 我會這個</label>
+    <div class="level-tools options">
+      <p class="tools-label">使用工具（可複選）</p>
+      <label><input type="checkbox" name="L6_tool" value="Dify" /> Dify</label>
+      <label><input type="checkbox" name="L6_tool" value="n8n Agent" /> n8n AI Agent 節點</label>
+      <label><input type="checkbox" name="L6_tool" value="Claude Agent SDK" /> Claude Agent SDK</label>
+      <label><input type="checkbox" name="L6_tool" value="OpenAI Assistants" /> OpenAI Assistants</label>
+      <label><input type="checkbox" name="L6_tool" value="CrewAI" /> CrewAI</label>
+      <label><input type="checkbox" name="L6_tool" value="AutoGen" /> AutoGen</label>
+      <label><input type="checkbox" name="L6_tool" value="LangGraph" /> LangGraph</label>
+      <label class="other"><input type="checkbox" name="L6_tool" value="其他" /> 其他：<input type="text" name="L6_tool_other" class="other-input" placeholder="請填寫" /></label>
     </div>
   </div>
 
-  <div class="question" data-q="Q08">
-    <p class="q-title"><span class="q-no">Q08</span> 同事發現「每次推出封面故事的當週，付費訂閱轉換率都比平均高 25%」，建議把預算全集中在封面故事週。你怎麼評估這個建議？</p>
-    <div class="options">
-      <label><input type="radio" name="Q08" value="A" required /> A. 數據很清楚顯示相關性，直接支持把預算全壓那週的建議</label>
-      <label><input type="radio" name="Q08" value="B" /> B. 先檢查封面故事週是否同時有促銷、大新聞、競品動態，排除後才能判因果</label>
-      <label><input type="radio" name="Q08" value="C" /> C. 建議再收集兩三個月的資料，目前樣本數可能不夠看出趨勢</label>
-      <label><input type="radio" name="Q08" value="D" /> D. 請 AI 算一下這個相關係數的統計顯著性，再決定要不要全壓</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q09">
-    <div class="question-image">
-      <img src="img/img-q09-dirty-data.png" alt="髒資料 CSV 截圖" />
-    </div>
-    <p class="q-title"><span class="q-no">Q09</span> 你拿到一份如圖的讀者訂閱資料，準備交給 AI 分析付費轉換率。你發現：15% 的 email 欄位空白、訂閱日期有三種不同格式、有些讀者重複出現但 ID 不同。你的第一步是？</p>
-    <div class="options">
-      <label><input type="radio" name="Q09" value="A" required /> A. 直接交給 AI，請它自動忽略有問題的欄位</label>
-      <label><input type="radio" name="Q09" value="B" /> B. 只分析那 85% 資料沒問題的讀者記錄，其餘略過</label>
-      <label><input type="radio" name="Q09" value="C" /> C. 統一日期格式、填補空值、合併重複項，再交給 AI 分析</label>
-      <label><input type="radio" name="Q09" value="D" /> D. 先讓 AI 評估這些資料問題的嚴重程度，再決定怎麼做</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q10">
-    <div class="question-image">
-      <img src="img/img-q10-bad-pie-chart.png" alt="呈現比例但缺乏行動建議的圓餅圖" />
-    </div>
-    <p class="q-title"><span class="q-no">Q10</span> 你做了一張本季文章類型分布的圓餅圖（如圖）給主管看。主管問：「接下來我們該做什麼？」你發現自己回答不出來。問題出在哪？</p>
-    <div class="options">
-      <label><input type="radio" name="Q10" value="A" required /> A. 主管不熟視覺化，先教育他怎麼看圓餅圖</label>
-      <label><input type="radio" name="Q10" value="B" /> B. 圓餅圖類別太多、顏色太雜，要簡化到三類以內</label>
-      <label><input type="radio" name="Q10" value="C" /> C. 圓餅圖只能呈現比例，要改用對比圖（本季 vs 上季差異）並附上行動建議</label>
-      <label><input type="radio" name="Q10" value="D" /> D. 任何視覺化只給比例不算完成，要連動到「該做什麼」的具體建議才對決策者有用</label>
-    </div>
-  </div>
-
-  <h3>第三部分：AI 工具選擇</h3>
-  <p class="part-intro">情境會出現你部門可能不熟悉的工作（影音、社群、業務）。即使不在你的工作範圍，請站在那位同事的角度想「如果是我，我會怎麼做」。</p>
-
-  <div class="question" data-q="Q11">
-    <p class="q-title"><span class="q-no">Q11</span> 你要寫一篇「2024 年訂閱經濟」的產業分析。資料散在三個地方：① 公司 Google Sheets 裡的歷年讀者調查 ② 三份產業 PDF（已存 Google Drive）③ 主編傳給你的 LINE 採訪錄音。你想讓 AI 整合分析、寫初稿、再直接 email 給主編 review。最有效率的做法？</p>
-    <div class="options">
-      <label><input type="radio" name="Q11" value="A" required /> A. 三個來源全部下載 / 截圖整理成一個 Word，再貼給 ChatGPT 寫初稿，寫完手動寄給主編</label>
-      <label><input type="radio" name="Q11" value="B" /> B. 用 Gemini 連接 Drive / Gmail / Sheets，請它讀三個來源、生成初稿、直接從對話框寄給主編，全程不離 Gemini</label>
-      <label><input type="radio" name="Q11" value="C" /> C. 開三個 AI 分工：一個讀 PDF、一個轉錄音、一個寫稿，最後人工整合</label>
-      <label><input type="radio" name="Q11" value="D" /> D. 全部上傳到 NotebookLM，它最擅長多來源整合</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q12">
-    <p class="q-title"><span class="q-no">Q12</span> 社群編輯每週要把 IG、FB、LINE 三個平台的數據貼進同一個 Sheet 算互動率，做了快一年。她不會寫程式。哪個工具最適合幫她自動化？</p>
-    <div class="options">
-      <label><input type="radio" name="Q12" value="A" required /> A. 用 ChatGPT 把每個平台的截圖貼進去問互動率</label>
-      <label><input type="radio" name="Q12" value="B" /> B. 用 Make.com 或 Zapier，視覺化拖拉串接三平台 API，不需寫程式碼</label>
-      <label><input type="radio" name="Q12" value="C" /> C. 找工程師寫一個爬蟲</label>
-      <label><input type="radio" name="Q12" value="D" /> D. 自己花時間學 Google Apps Script 寫腳本</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q13">
-    <p class="q-title"><span class="q-no">Q13</span> 行銷部同事每月要做「會員問卷分析報告」，流程是：從 Google Forms 下載 csv → Excel 算各題分布 → 整理進 PPT → 把檔案存進共享 Drive 並寄 email 通知主管。她想自動化整串、不要分散在好幾個工具切換。哪個做法最完整？</p>
-    <div class="options">
-      <label><input type="radio" name="Q13" value="A" required /> A. 用 Gemini，它已連 Drive + Gmail，請它讀 Forms 資料、生成圖表、寫 PPT、存 Drive、寄信給主管，全程在一個對話框</label>
-      <label><input type="radio" name="Q13" value="B" /> B. 用 ChatGPT 上傳 csv 請它寫 Python 腳本，本機跑完再手動傳檔案、手動寄信</label>
-      <label><input type="radio" name="Q13" value="C" /> C. 開 Make.com 視覺化串接四個工具，做一個自動化流程</label>
-      <label><input type="radio" name="Q13" value="D" /> D. 找工程師寫一個 Python Pipeline 跑排程</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q14">
-    <div class="question-image">
-      <img src="img/img-q14-handwritten-note.jpg" alt="手寫客戶需求單" />
-    </div>
-    <p class="q-title"><span class="q-no">Q14</span> 廣告業務同事剛收到客戶手寫的提案需求單（如圖）。客戶 LINE 上正在等回覆，他手邊只有手機。最有效率的做法是？</p>
-    <div class="options">
-      <label><input type="radio" name="Q14" value="A" required /> A. 把照片傳給 Claude 或 GPT-4，請它辨識手寫文字並整理成 email 草稿</label>
-      <label><input type="radio" name="Q14" value="B" /> B. 自己看圖手動打字</label>
-      <label><input type="radio" name="Q14" value="C" /> C. 用 OCR 軟體先轉文字，再用 AI 改寫成 email</label>
-      <label><input type="radio" name="Q14" value="D" /> D. 打電話給客戶再問一遍，確保準確</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q15">
-    <div class="question-image">
-      <img src="img/img-q15-gemini-docs.png" alt="Google Docs 含 Gemini 側邊欄" />
-    </div>
-    <p class="q-title"><span class="q-no">Q15</span> 你正在 Google Docs 寫一份廣告提案，文件右側有 ✦ Gemini 圖示（如圖）。你想加一段「商周讀者輪廓分析」。為什麼用側邊欄 ✦ Gemini，比另開 ChatGPT 視窗更省事？</p>
-    <div class="options">
-      <label><input type="radio" name="Q15" value="A" required /> A. 因為 Gemini 是 Google 自家工具，跟 Docs 整合的速度比較快</label>
-      <label><input type="radio" name="Q15" value="B" /> B. 因為 ✦ Gemini 已讀目前文件的前後文，生成的內容能與上下文連貫，不需手動複製貼回</label>
-      <label><input type="radio" name="Q15" value="C" /> C. 因為 ChatGPT 完全無法讀取 Google Docs 的內容，這種任務只能用 Gemini</label>
-      <label><input type="radio" name="Q15" value="D" /> D. 因為 Gemini 模型本身比 ChatGPT 強，更適合這種需要上下文的工作</label>
-    </div>
-  </div>
-
-  <h3>第四部分：AI 流程設計</h3>
-
-  <div class="question" data-q="Q16">
-    <p class="q-title"><span class="q-no">Q16</span> 你用 Claude 生成了一段 Google Apps Script，目標是把三個 Sheets 的數據自動整合成週報格式。貼入試算表後執行，畫面出現紅色錯誤訊息。你完全不懂 JavaScript，你的下一步是？</p>
-    <div class="options">
-      <label><input type="radio" name="Q16" value="A" required /> A. 把整段程式碼加上完整的錯誤訊息，一起貼回給 Claude，請它找出哪裡出問題並修正</label>
-      <label><input type="radio" name="Q16" value="B" /> B. 先去找 JavaScript 教學，學懂語法再來看這段程式碼</label>
-      <label><input type="radio" name="Q16" value="C" /> C. 把程式碼貼進 Google 搜尋，找有沒有人遇過一樣的問題</label>
-      <label><input type="radio" name="Q16" value="D" /> D. 放棄這個方法，改用 Make.com 重做流程</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q17">
-    <p class="q-title"><span class="q-no">Q17</span> 以下兩個工作要自動化：①「廣告訂單金額超過 50 萬要轉總監審核」②「讀者來信要判斷『是不是緊急、要不要主管立刻看』」。哪個用 AI、哪個用規則設定就好？</p>
-    <div class="options">
-      <label><input type="radio" name="Q17" value="A" required /> A. 兩個都用 AI 判斷</label>
-      <label><input type="radio" name="Q17" value="B" /> B. 兩個都用規則設定</label>
-      <label><input type="radio" name="Q17" value="C" /> C. ① 用 AI；② 用關鍵字比對</label>
-      <label><input type="radio" name="Q17" value="D" /> D. ① 用規則設定；② 用 AI 判斷</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q18">
-    <p class="q-title"><span class="q-no">Q18</span> 社群編輯每週一早上要花 2 小時整理 IG、Facebook、LINE 的數據、寫成報告、寄給三位主管。你被要求把這個流程自動化。你的第一步是？</p>
-    <div class="options">
-      <label><input type="radio" name="Q18" value="A" required /> A. 先開啟 Make.com 或 Zapier，連接三個平台的 API，看工具支援哪些功能，再決定能自動化哪些步驟</label>
-      <label><input type="radio" name="Q18" value="B" /> B. 先完整記錄手動流程的每個步驟，找出可省略的環節，確認三位主管各自要看的報告格式，再挑選合適的工具</label>
-      <label><input type="radio" name="Q18" value="C" /> C. 把需求描述貼給 Claude 或 Gemini，請它推薦最適合這個情境的自動化工具與流程架構</label>
-      <label><input type="radio" name="Q18" value="D" /> D. 把現有週報截圖給 AI，請它自己看著辦、推薦工具並寫好腳本</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q19">
-    <p class="q-title"><span class="q-no">Q19</span> 主編下了三個要求要部署「自動分流讀者投訴信」流程：① 信件量大不能漏；② 系統沒分到的奇怪信件不能丟掉；③ 要回頭追蹤每封信怎麼處理。以下四個流程設計，哪個最符合主編三個要求？</p>
-    <div class="options options-with-image">
-      <label>
-        <input type="radio" name="Q19" value="A" required />
-        <span class="option-text">A. 信件進來 → AI 語意分析 → 轉給對應編輯組 → 自動回覆讀者「已收到」</span>
-        <span class="option-image"><img src="img/img-q19-flow-A.png" alt="選項 A 流程圖" /></span>
-      </label>
-      <label>
-        <input type="radio" name="Q19" value="B" />
-        <span class="option-text">B. 信件進來 → 關鍵字比對（「錯誤」→ 校對組 / 「廣告」→ 業務組 / 「退訂」→ 客服組）→ 各組自動通知 → 處理完畢後關閉案件</span>
-        <span class="option-image"><img src="img/img-q19-flow-B.png" alt="選項 B 流程圖" /></span>
-      </label>
-      <label>
-        <input type="radio" name="Q19" value="C" />
-        <span class="option-text">C. 信件進來 → AI 分類（內容錯誤 / 版權問題 / 廣告投訴 / 其他）→ 各類走對應路徑 → 無法分類時轉人工確認 → 所有案件寫入追蹤系統</span>
-        <span class="option-image"><img src="img/img-q19-flow-C.png" alt="選項 C 流程圖" /></span>
-      </label>
-      <label>
-        <input type="radio" name="Q19" value="D" />
-        <span class="option-text">D. 信件進來 → AI 判斷緊急程度 → 緊急信件即時推播給主編 → 非緊急信件進入待辦佇列 → 逾 24 小時未處理自動提醒責任人</span>
-        <span class="option-image"><img src="img/img-q19-flow-D.png" alt="選項 D 流程圖" /></span>
-      </label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q20">
-    <p class="q-title"><span class="q-no">Q20</span> 你做了一個 AI 流程：每週把 50 篇文章自動丟給 AI 摘要、寄到主管信箱。三週後主管說「摘要愈來愈不準，常常抓錯重點」。你的下一步？</p>
-    <div class="options">
-      <label><input type="radio" name="Q20" value="A" required /> A. 換更新更強的 AI 模型重做一次</label>
-      <label><input type="radio" name="Q20" value="B" /> B. 立刻關閉這個自動流程，全部改回人工摘要</label>
-      <label><input type="radio" name="Q20" value="C" /> C. 從失敗摘要中找出共同特徵（哪類文章常出錯），重設 prompt 並補上失敗案例的範例</label>
-      <label><input type="radio" name="Q20" value="D" /> D. 把這件事交給 AI，請 AI 自己判斷哪裡出問題</label>
-    </div>
-  </div>
-
-  <h3>第五部分：AI 協作與委派</h3>
-
-  <div class="question" data-q="Q21">
-    <p class="q-title"><span class="q-no">Q21</span> 商周要部署一個 AI 系統，自動回覆讀者的常見問題（訂閱方案、退訂流程、發票申請）。主編問你哪些情況必須轉給真人客服。以下哪個設計最合理？</p>
-    <div class="options">
-      <label><input type="radio" name="Q21" value="A" required /> A. 全部都交給 AI，減少人力成本</label>
-      <label><input type="radio" name="Q21" value="B" /> B. 全部都轉給真人，AI 只做分類</label>
-      <label><input type="radio" name="Q21" value="C" /> C. 依照問題類型決定：FAQ 全自動，投訴 / 退款 / 內容錯誤轉人工</label>
-      <label><input type="radio" name="Q21" value="D" /> D. 依照讀者信件的字數決定：短信全自動，長信轉人工</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q22">
-    <p class="q-title"><span class="q-no">Q22</span> 你要設置一個 AI Agent，每天早上幫你彙整台灣科技與媒體產業的重要新聞摘要。你需要先告訴它什麼，它才能持續穩定輸出有用的內容？</p>
-    <div class="options">
-      <label><input type="radio" name="Q22" value="A" required /> A. 你的個人行事曆、當天的工作計畫，以及最近三個月讀過的文章清單，讓 Agent 了解你的閱讀偏好後自動篩選</label>
-      <label><input type="radio" name="Q22" value="B" /> B. 你過去一個月的瀏覽紀錄和點開的新聞連結，讓 Agent 學習你的習慣，之後每天根據你的行為模式動態調整推薦</label>
-      <label><input type="radio" name="Q22" value="C" /> C. 你關注的競爭媒體名單、追蹤關鍵字（如 AI 媒體、訂閱經濟、廣告市場），以及你希望的摘要格式（每則 100 字、附來源、標注重要程度）</label>
-      <label><input type="radio" name="Q22" value="D" /> D. 把你過去一年的所有閱讀紀錄、書籤、收藏全部給 Agent，越多越懂你</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q23">
-    <p class="q-title"><span class="q-no">Q23</span> 你手上有五件今天要處理的事，哪些可以直接交給 AI Agent 執行，不需要你逐步確認？</p>
-    <p class="q-sub">① 把昨天採訪逐字稿整理成 300 字摘要<br/>② 代表商周向廣告客戶道歉並提出補救方案<br/>③ 從 500 份讀者問卷統計各題平均分<br/>④ 判斷一個新合作夥伴的信譽與可靠度<br/>⑤ 把八個城市的廣告市場規模數據彙整成表格</p>
-    <div class="options">
-      <label><input type="radio" name="Q23" value="A" required /> A. ①③⑤（整理、統計、彙整）</label>
-      <label><input type="radio" name="Q23" value="B" /> B. ①②③（摘要、溝通、統計）</label>
-      <label><input type="radio" name="Q23" value="C" /> C. ①③④（摘要、統計、評估）</label>
-      <label><input type="radio" name="Q23" value="D" /> D. 全部都可以直接交給 AI</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q24">
-    <p class="q-title"><span class="q-no">Q24</span> 商周編輯部想讓 AI 在審稿時自動套用「商周文字風格規則」、做數據查證時自動套用「商周稽核流程」、寫專欄時自動參考「歷年案例」。問題是：每種工作要不同的規則包，每次重貼太累、全部塞同個對話又會稀釋指令焦點。怎麼做最對？</p>
-    <div class="options">
-      <label><input type="radio" name="Q24" value="A" required /> A. 建一個固定 Project 把所有規則打包進去，每次都從這個 Project 開對話</label>
-      <label><input type="radio" name="Q24" value="B" /> B. 打包成獨立 Skill，AI 偵測對應任務時自動載入</label>
-      <label><input type="radio" name="Q24" value="C" /> C. 寫一個超級 Prompt 自動幫你切換指令焦點</label>
-      <label><input type="radio" name="Q24" value="D" /> D. 這種多套規則的需求 AI 目前做不到，還是要靠人工切換</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q25">
-    <p class="q-title"><span class="q-no">Q25</span> 你聽說 Claude 有個叫 <strong>MCP</strong>（Model Context Protocol）的新功能。MCP 解決的最核心問題是？</p>
-    <div class="options">
-      <label><input type="radio" name="Q25" value="A" required /> A. AI 模型本身變得更聰明、回答品質提升</label>
-      <label><input type="radio" name="Q25" value="B" /> B. 讓 AI 在對話中能直接讀寫你授權的外部工具，不用手動貼資料</label>
-      <label><input type="radio" name="Q25" value="C" /> C. 加速 AI 處理速度，能平行處理多個任務</label>
-      <label><input type="radio" name="Q25" value="D" /> D. 只有 Claude Pro / 企業版用戶才能用</label>
-    </div>
-  </div>
-
-  <h3>第六部分：AI 風險意識</h3>
-
-  <div class="question" data-q="Q26">
-    <div class="question-image">
-      <img src="img/img-q26-personal-data-csv.png" alt="付費讀者主檔（含個資）" />
-    </div>
-    <p class="q-title"><span class="q-no">Q26</span> 你要請 AI 幫你分析一份如圖包含讀者姓名、email、訂閱狀態的 CSV 檔。公司規定個資不能上傳至外部服務。你怎麼做？</p>
-    <div class="options">
-      <label><input type="radio" name="Q26" value="A" required /> A. 直接上傳到 ChatGPT，它在隱私政策裡承諾不會洩漏資料</label>
-      <label><input type="radio" name="Q26" value="B" /> B. 用公司內部 AI（如 Gemini for Workspace），或先去識別化再上傳外部</label>
-      <label><input type="radio" name="Q26" value="C" /> C. 跟主管說這件事用 AI 做不了，需要換成其他不上傳的工具</label>
-      <label><input type="radio" name="Q26" value="D" /> D. 先刪掉 email 欄位，留姓名和訂閱狀態，其他欄位上傳應該沒問題</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q27">
-    <div class="question-image">
-      <img src="img/img-q27-ai-hallucination.png" alt="AI 對台灣媒體廣告市場分析的回覆" />
-    </div>
-    <p class="q-title"><span class="q-no">Q27</span> 你請 AI 查台灣媒體廣告市場的研究報告，AI 給了你如圖的分析：五個機構的市場數據、三篇研究報告的完整標題與發布年份，看起來非常正式。你的下一步是？</p>
-    <div class="options">
-      <label><input type="radio" name="Q27" value="A" required /> A. 直接放進你的分析報告，這麼完整的內容通常是正確的</label>
-      <label><input type="radio" name="Q27" value="B" /> B. 抽查至少 2-3 個關鍵機構名稱與數據，到原始官方來源確認真實存在</label>
-      <label><input type="radio" name="Q27" value="C" /> C. 請 AI 再次確認「這些數據都是正確的嗎？」，回答「是」就採用</label>
-      <label><input type="radio" name="Q27" value="D" /> D. 稍微改寫讓它看起來不像 AI 生成的</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q28">
-    <div class="question-image">
-      <img src="img/img-q28-ai-image.png" alt="AI 生成的商業概念圖" />
-    </div>
-    <p class="q-title"><span class="q-no">Q28</span> 視覺同事用 Midjourney 生成了一張如圖的概念圖，準備放進廣告客戶的提案。法務問著作權的問題。以下哪個說法最接近現實？</p>
-    <div class="options">
-      <label><input type="radio" name="Q28" value="A" required /> A. AI 生成的圖在多數國家不受著作權保護，商業使用要確認平台條款</label>
-      <label><input type="radio" name="Q28" value="B" /> B. 著作權屬於下指令的設計師，因為創意是他發起的</label>
-      <label><input type="radio" name="Q28" value="C" /> C. 著作權屬於 Midjourney 公司，他們是訓練模型的人</label>
-      <label><input type="radio" name="Q28" value="D" /> D. 著作權歸訓練資料的原始攝影師，因為 AI 是學他們的</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q29">
-    <p class="q-title"><span class="q-no">Q29</span> 商周的 AI 客服機器人介面設計得像真人客服，名字叫「小周」。法務問你：這個機器人需不需要主動告訴讀者「你現在跟 AI 在說話」？</p>
-    <div class="options">
-      <label><input type="radio" name="Q29" value="A" required /> A. 不需要，讀者知道是 AI 可能會覺得服務品質不夠好</label>
-      <label><input type="radio" name="Q29" value="B" /> B. 只要讀者主動問「你是真人嗎」的時候再說明就好</label>
-      <label><input type="radio" name="Q29" value="C" /> C. 交給法律部門決定，目前 AI 規範還沒有定論</label>
-      <label><input type="radio" name="Q29" value="D" /> D. AI 身份應在互動開始時主動揭露，且讀者詢問時不得否認是 AI</label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q30">
-    <p class="q-title"><span class="q-no">Q30</span> 廣告業務同事私下傳訊給你：「下週要交廣告效果報告，這個客戶的點擊率沒達到 KPI，能不能幫我用 AI 調整一下數字，格式一樣，客戶看不出來。」你怎麼回應？</p>
-    <div class="options">
-      <label><input type="radio" name="Q30" value="A" required /> A. 幫他調，他是資深同事，而且只是小調整</label>
-      <label><input type="radio" name="Q30" value="B" /> B. 先問清楚背景，如果有合理原因就協助</label>
-      <label><input type="radio" name="Q30" value="C" /> C. 直接拒絕，告訴他你無法修改廣告效果數據，若有溝通需求應走正式管道，誠實跟客戶說明實況</label>
-      <label><input type="radio" name="Q30" value="D" /> D. 先幫他改，但同時備份原始資料保護自己</label>
-    </div>
-  </div>
 </section>
-
-<!-- ========== D. 工作痛點 × AI 期望 ========== -->
-<section class="block" data-block="D">
-  <h2>D. 工作痛點 × AI 期望</h2>
-
-  <div class="question" data-q="D1">
-    <p class="q-title"><span class="q-no">D1</span> 如果 AI 可以幫你省下一半的工作時間，你最希望省在哪一項？</p>
-    <div class="options">
-      <label><input type="radio" name="D1" value="寫稿改稿" required /> 寫稿 / 改稿</label>
-      <label><input type="radio" name="D1" value="逐字稿" /> 整理採訪紀錄 / 逐字稿</label>
-      <label><input type="radio" name="D1" value="社群內容" /> 製作社群內容</label>
-      <label><input type="radio" name="D1" value="數據報告" /> 數據報告製作</label>
-      <label><input type="radio" name="D1" value="翻譯多語" /> 翻譯 / 多語言處理</label>
-      <label><input type="radio" name="D1" value="客戶提案" /> 客戶提案準備</label>
-      <label><input type="radio" name="D1" value="會議行政" /> 會議記錄 / 行政文件</label>
-      <label class="other"><input type="radio" name="D1" value="其他" /> 其他：<input type="text" name="D1_other" class="other-input" placeholder="請填寫" /></label>
-    </div>
-  </div>
-
-  <div class="question" data-q="D2">
-    <p class="q-title"><span class="q-no">D2</span> 關於在工作中使用 AI，你最大的顧慮是什麼？<span class="hint">（最多選 2）</span></p>
-    <div class="options">
-      <label><input type="checkbox" name="D2" value="不確定哪個工具適合" data-max="2" /> 不確定哪個工具適合我的工作</label>
-      <label><input type="checkbox" name="D2" value="輸出品質不穩" data-max="2" /> 擔心 AI 輸出品質不穩，需要大量校對</label>
-      <label><input type="checkbox" name="D2" value="資料安全機密外洩" data-max="2" /> 擔心資料安全 / 公司機密外洩</label>
-      <label><input type="checkbox" name="D2" value="創意AI幫不上忙" data-max="2" /> 覺得我的工作需要創意，AI 幫不上忙</label>
-      <label><input type="checkbox" name="D2" value="同事主管看法" data-max="2" /> 已在用 AI，但不確定同事 / 主管怎麼看</label>
-      <label><input type="checkbox" name="D2" value="不知道從哪開始學" data-max="2" /> 不知道從哪裡開始學</label>
-      <label><input type="checkbox" name="D2" value="沒特別顧慮" data-max="2" /> 沒有特別顧慮，只是還沒試過</label>
-      <label class="other"><input type="checkbox" name="D2" value="其他" data-max="2" /> 其他：<input type="text" name="D2_other" class="other-input" placeholder="請填寫" /></label>
-    </div>
-  </div>
-
-  <div class="question" data-q="D3">
-    <p class="q-title"><span class="q-no">D3</span> 用一句話，說你最想用 AI 解決的一個工作問題</p>
-    <textarea name="D3" rows="3" placeholder="例如：希望可以把每週固定要做的某件事（會議記錄 / 客戶回信 / 數據彙整⋯⋯）變成 30 分鐘內就能完成"></textarea>
-  </div>
-</section>
-
-<div id="form-error" class="form-error" hidden></div>
-
-<button type="submit" id="submit-btn">送出，看我的 AI 即戰力報告</button>
 
 </form>
 
-<!-- ========== 個人報告 ========== -->
+<div id="form-error" class="form-error" hidden></div>
+
+<button type="button" id="submit-btn">送出問卷</button>
+
+<!-- ========== 個人報告（燈泡 ＋ 使用畫像）========== -->
 <section id="report" hidden>
-  <h2>你的 AI 即戰力報告</h2>
-  <p class="report-intro">六個能力維度各自獨立評估，沒有總體分數、沒有排名。看哪些已上手、哪些還可以加強。</p>
+  <h2>您的 AI 使用畫像</h2>
+  <p class="report-intro">下方是您剛剛填答的整理。資料已協助人資部門掌握全員現況，將作為 Workshop 課程設計依據。</p>
 
-  <div class="report-card">
-    <p class="report-label">六維能力雷達</p>
-    <div class="chart-wrap">
-      <canvas id="radar-chart"></canvas>
-    </div>
+  <!-- L1-L6 燈泡列 -->
+  <div class="report-card bulbs-card">
+    <p class="report-label">人機協作六階段</p>
+    <div class="bulbs-row" id="bulbs-row"></div>
+    <p class="bulbs-summary" id="bulbs-summary">—</p>
   </div>
 
+  <!-- 使用畫像 -->
   <div class="report-card">
-    <p class="report-label">人機協作六層 — 看你爬到哪一層（每層 5 題）</p>
-    <div id="level-grid" class="level-grid"></div>
+    <p class="report-label">使用畫像</p>
+    <dl class="profile-list" id="profile-list"></dl>
   </div>
 
-  <div id="gap-card" class="report-card" hidden>
-    <p class="report-label">自我認知差距</p>
-    <p id="gap-text" class="report-desc"></p>
-  </div>
-
-  <div class="report-card">
-    <p class="report-label">你最想用 AI 解決的問題</p>
-    <p id="d4-echo" class="report-desc">—</p>
+  <!-- 各層工具明細 -->
+  <div class="report-card" id="level-detail-card" hidden>
+    <p class="report-label">各層級使用工具</p>
+    <div id="level-detail"></div>
   </div>
 
   <div id="submit-status" class="report-card status">
@@ -608,13 +252,8 @@
 </main>
 
 <footer class="page-footer">
-  <p>AI Readiness Assessment · 2026</p>
+  <p>商周 AI 能力調查問卷</p>
 </footer>
-
-<div id="lightbox" class="lightbox" hidden>
-  <img id="lightbox-img" alt="" />
-  <button id="lightbox-close" type="button" aria-label="關閉">×</button>
-</div>
 
 <script src="script.js"></script>
 </body>
