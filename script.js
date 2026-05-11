@@ -98,13 +98,6 @@ function validate() {
     if (!form.querySelector(`input[name="${name}"]:checked`)) errors.push(name);
   });
 
-  // Q1: 若選「每週」要填天數
-  const q1Val = form.querySelector('input[name="Q1"]:checked');
-  if (q1Val && q1Val.value === '每週') {
-    const cnt = form.querySelector('input[name="Q1_count"]');
-    if (!cnt.value.trim()) errors.push('Q1');
-  }
-
   // Q2、Q4 為複選，至少一個
   if (!form.querySelector('input[name="Q2"]:checked')) errors.push('Q2');
   if (!form.querySelector('input[name="Q4"]:checked')) errors.push('Q4');
@@ -144,12 +137,16 @@ function collectAnswers() {
     return v;
   };
 
-  // Q1 特殊處理：若選「每週」附加天數
-  let q1 = single('Q1');
-  if (q1 === '每週') {
-    const cnt = (fd.get('Q1_count') || '').trim();
-    q1 = `每週${cnt}天`;
-  }
+  // Q1 五分量表
+  const Q1_LABELS = {
+    '1': '1 - 從沒使用過',
+    '2': '2 - 很少使用',
+    '3': '3 - 偶爾使用',
+    '4': '4 - 經常使用',
+    '5': '5 - 每天都用',
+  };
+  const q1Raw = single('Q1');
+  const q1 = Q1_LABELS[q1Raw] || q1Raw;
 
   const levels = {};
   LEVELS.forEach(L => {
