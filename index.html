@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>商周 AI 能力調查問卷</title>
 <link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -259,6 +260,14 @@
     <p class="report-label">人機協作六階段</p>
     <div class="bulbs-row" id="bulbs-row"></div>
     <p class="bulbs-summary" id="bulbs-summary">—</p>
+  </div>
+
+  <!-- 2b. 雷達圖 -->
+  <div class="report-card radar-card">
+    <p class="report-label">六階段熟練度分布</p>
+    <div class="chart-wrap">
+      <canvas id="radar-chart"></canvas>
+    </div>
   </div>
 
   <!-- 3. 適合你的下一步（學習路徑建議） -->

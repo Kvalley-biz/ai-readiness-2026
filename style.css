@@ -1096,6 +1096,12 @@ textarea:focus {
   word-break: break-word;
 }
 
+/* ============ Report: 雷達圖 ============ */
+.radar-card .chart-wrap {
+  margin: 12px auto 0;
+  max-width: 440px;
+}
+
 /* ============ Report: 身份名片 ============ */
 .identity-card {
   background: var(--color-ink);

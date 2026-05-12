@@ -197,6 +197,7 @@ function showReport(data) {
   submitBtn.hidden = true;
   renderIdentity(data);
   renderBulbs(data.levels);
+  drawRadar(data.levels);
   renderRecommendation(data);
   renderToolMap(data);
   renderProfile(data);
@@ -264,6 +265,56 @@ function renderProfile(data) {
   list.innerHTML = rows.map(([k, v]) =>
     `<dt>${k}</dt><dd>${escapeHtml(v)}</dd>`
   ).join('');
+}
+
+// ====== 雷達圖 ======
+function drawRadar(levels) {
+  const ctx = document.getElementById('radar-chart').getContext('2d');
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: LEVELS.map(L => `${L} ${LEVEL_LABELS[L]}`),
+      datasets: [{
+        label: '熟練度',
+        data: LEVELS.map(L => levels[L].level),
+        backgroundColor: 'rgba(200, 22, 30, 0.15)',
+        borderColor: 'rgba(200, 22, 30, 0.9)',
+        borderWidth: 2,
+        pointBackgroundColor: 'rgba(200, 22, 30, 1)',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: { label: (ctx) => `${ctx.label}：${ctx.raw} / 5` },
+        },
+      },
+      scales: {
+        r: {
+          min: 0,
+          max: 5,
+          ticks: {
+            stepSize: 1,
+            font: { size: 11 },
+            color: '#888',
+            backdropColor: 'transparent',
+          },
+          pointLabels: {
+            font: { size: 12, weight: '600', family: 'Noto Serif TC, serif' },
+            color: '#1a1a1a',
+          },
+          grid: { color: '#e5e5e0' },
+          angleLines: { color: '#e5e5e0' },
+        },
+      },
+    },
+  });
 }
 
 // ====== 學習路徑建議 ======
