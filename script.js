@@ -222,7 +222,6 @@ function showReport(data) {
   renderIdentity(data);
   drawRadar(data.levels);
   renderStageSummary(data.levels);
-  renderRecommendation(data);
   reportEl.hidden = false;
   reportEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
