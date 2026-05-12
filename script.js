@@ -8,14 +8,6 @@
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_aG4Ad74r2pASZfnvQ49zm1xu7r3fj8zI8R276d4Xw_TqECTwHOOZY9dW3dQ8y-63iQ/exec';
 
-const Q1_LABELS = {
-  '1': '1 - 從沒使用過',
-  '2': '2 - 很少使用',
-  '3': '3 - 偶爾使用',
-  '4': '4 - 經常使用',
-  '5': '5 - 每天都用',
-};
-
 const D2_LABELS = {
   'Prompt寫法': '學會 AI Prompt 寫法',
   '找適合工具': '找到適合自己工作的 AI 工具',
@@ -134,11 +126,12 @@ function validate() {
   // D2 期待
   if (!form.querySelector('input[name="D2"]:checked')) errors.push('D2');
 
-  // C 區：至少勾選一項「我會這個」
-  const anyLevelUsed = LEVELS.some(L => form.querySelector(`input[name="${L}_used"]:checked`));
-  if (!anyLevelUsed) {
-    LEVELS.forEach(L => errors.push(L));
-  }
+  // C 區：每個 L 都要有評分
+  LEVELS.forEach(L => {
+    if (!form.querySelector(`input[name="${L}_level"]:checked`)) {
+      errors.push(L);
+    }
+  });
 
   return errors;
 }
@@ -167,8 +160,9 @@ function collectAnswers() {
 
   const levels = {};
   LEVELS.forEach(L => {
+    const level = parseInt(fd.get(`${L}_level`) || '0', 10);
     levels[L] = {
-      used: fd.get(`${L}_used`) === '1',
+      level,
       tools: withOther(multi(`${L}_tool`), `${L}_tool`),
     };
   });
@@ -177,7 +171,7 @@ function collectAnswers() {
     A1: single('A1').trim(),
     A2: singleWithOther('A2'),
     A3: single('A3').trim(),
-    Q1: Q1_LABELS[single('Q1')] || single('Q1'),
+    Q1: single('Q1'),
     Q2: withOther(multi('Q2'), 'Q2'),
     Q3: (fd.get('Q3') || '').trim(),
     D1: withOther(multi('D1'), 'D1'),
@@ -207,25 +201,28 @@ const BULB_SVG = `
 </svg>`;
 
 function renderBulbs(levels) {
+  // 熟練度 >= 3（偶爾做以上）算亮起
   const row = document.getElementById('bulbs-row');
   row.innerHTML = LEVELS.map(L => {
-    const lit = levels[L].used;
+    const v = levels[L].level;
+    const lit = v >= 3;
     return `
       <div class="bulb ${lit ? 'lit' : ''}">
         <div class="bulb-icon">${BULB_SVG}</div>
         <span class="bulb-code">${L}</span>
         <span class="bulb-label">${LEVEL_LABELS[L]}</span>
+        <span class="bulb-score">${v} / 5</span>
       </div>
     `;
   }).join('');
 
-  const reached = LEVELS.filter(L => levels[L].used);
+  const reached = LEVELS.filter(L => levels[L].level >= 3);
   const summary = document.getElementById('bulbs-summary');
   if (reached.length > 0) {
     const highest = reached[reached.length - 1];
-    summary.innerHTML = `已點亮 <strong>${reached.length}</strong> 個層次 · 目前走到 <strong>${highest}（${LEVEL_LABELS[highest]}）</strong>`;
+    summary.innerHTML = `已點亮 <strong>${reached.length}</strong> 個層次（熟練度 ≥ 3）· 目前走到 <strong>${highest}（${LEVEL_LABELS[highest]}）</strong>`;
   } else {
-    summary.textContent = '尚未在任一階段實際使用 AI';
+    summary.textContent = '目前各階段熟練度都在 1–2 之間 — Workshop 將從基礎開始帶起';
   }
 }
 
@@ -251,15 +248,16 @@ function renderProfile(data) {
 function renderLevelDetail(levels) {
   const card = document.getElementById('level-detail-card');
   const detail = document.getElementById('level-detail');
-  const used = LEVELS.filter(L => levels[L].used);
+  // 顯示熟練度 >= 2 的層次（試過以上才有意義列出工具）
+  const used = LEVELS.filter(L => levels[L].level >= 2);
   if (used.length === 0) { card.hidden = true; return; }
   card.hidden = false;
   detail.innerHTML = used.map(L => {
-    const tools = levels[L].tools.length > 0 ? levels[L].tools.join('、') : '（未選工具）';
+    const tools = levels[L].tools.length > 0 ? levels[L].tools.join('、') : '—';
     return `
       <div class="level-detail-row">
         <span class="level-detail-code">${L}</span>
-        <span class="level-detail-label">${LEVEL_LABELS[L]}</span>
+        <span class="level-detail-label">${LEVEL_LABELS[L]}（${levels[L].level} / 5）</span>
         <span class="level-detail-tools">${escapeHtml(tools)}</span>
       </div>
     `;
@@ -288,7 +286,7 @@ function buildPayload(data) {
     D2_最希望幫忙: data.D2,
   };
   LEVELS.forEach(L => {
-    payload[`${L}_有在做`] = data.levels[L].used ? 'Y' : '';
+    payload[`${L}_熟練度`] = data.levels[L].level || '';
     payload[`${L}_工具`] = data.levels[L].tools.join('|');
   });
   return payload;

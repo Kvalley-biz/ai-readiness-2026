@@ -59,13 +59,12 @@
   <h2>B. AI 使用現況與需求</h2>
 
   <div class="question" data-q="Q1">
-    <p class="q-title"><span class="q-no">Q1</span> 您目前使用 AI 工具的頻率為何？<span class="hint">（1 = 從沒用過，5 = 每天都用）</span></p>
+    <p class="q-title"><span class="q-no">Q1</span> 您目前使用 AI 工具的頻率為何？</p>
     <div class="options">
-      <label><input type="radio" name="Q1" value="1" /> <strong>1</strong>　從沒使用過</label>
-      <label><input type="radio" name="Q1" value="2" /> <strong>2</strong>　很少使用（一個月一次以下）</label>
-      <label><input type="radio" name="Q1" value="3" /> <strong>3</strong>　偶爾使用（一週 1–2 次）</label>
-      <label><input type="radio" name="Q1" value="4" /> <strong>4</strong>　經常使用（一週 3–5 次）</label>
-      <label><input type="radio" name="Q1" value="5" /> <strong>5</strong>　每天都用</label>
+      <label><input type="radio" name="Q1" value="幾乎每天" /> 幾乎每天都會使用</label>
+      <label><input type="radio" name="Q1" value="每週數次" /> 每週使用數次</label>
+      <label><input type="radio" name="Q1" value="很少" /> 很少使用</label>
+      <label><input type="radio" name="Q1" value="沒用過" /> 沒有使用過</label>
     </div>
   </div>
 
@@ -99,24 +98,48 @@
 <!-- ========== C. 人機協作七階段 ========== -->
 <section class="block" data-block="C">
   <h2>C. 下列哪些事您目前會做？</h2>
-  <p class="block-intro">以下由淺到深，請勾選您「實際在工作中會做」的項目，並選擇使用工具。沒有的留白即可。</p>
+  <p class="block-intro">以下由淺到深，請就每一項評估自己的熟練度（1 = 完全不會，5 = 熟練操作），並選擇使用的工具。</p>
 
   <div class="question level-question" data-q="L1">
     <p class="q-title"><span class="q-no">L1</span> 我會用 AI 對話、問問題、查資料</p>
     <p class="q-hint">例：請 ChatGPT 想標題、解釋一個概念、整理會議重點。</p>
-    <label class="level-check"><input type="checkbox" name="L1_used" value="1" /> 我會這個</label>
+    <div class="scale-row">
+      <span class="scale-end-label">完全不會</span>
+      <label><input type="radio" name="L1_level" value="1" /> 1</label>
+      <label><input type="radio" name="L1_level" value="2" /> 2</label>
+      <label><input type="radio" name="L1_level" value="3" /> 3</label>
+      <label><input type="radio" name="L1_level" value="4" /> 4</label>
+      <label><input type="radio" name="L1_level" value="5" /> 5</label>
+      <span class="scale-end-label">熟練操作</span>
+    </div>
   </div>
 
   <div class="question level-question" data-q="L2">
     <p class="q-title"><span class="q-no">L2</span> 我會下多步驟指令，讓 AI 一次完成任務</p>
     <p class="q-hint">例：「先讀這份資料 → 抓出三個重點 → 用商周風格寫成 300 字摘要 → 再幫我下三個標題備選」。</p>
-    <label class="level-check"><input type="checkbox" name="L2_used" value="1" /> 我會這個</label>
+    <div class="scale-row">
+      <span class="scale-end-label">完全不會</span>
+      <label><input type="radio" name="L2_level" value="1" /> 1</label>
+      <label><input type="radio" name="L2_level" value="2" /> 2</label>
+      <label><input type="radio" name="L2_level" value="3" /> 3</label>
+      <label><input type="radio" name="L2_level" value="4" /> 4</label>
+      <label><input type="radio" name="L2_level" value="5" /> 5</label>
+      <span class="scale-end-label">熟練操作</span>
+    </div>
   </div>
 
   <div class="question level-question" data-q="L3">
     <p class="q-title"><span class="q-no">L3</span> 我會使用多種 AI 工具組合，完成單一任務</p>
     <p class="q-hint">例：用 NotebookLM 讀 PDF → 把摘要丟給 Claude 寫成報導；或用 Perplexity 找資料 → ChatGPT 整理 → Canva AI 出圖。</p>
-    <label class="level-check"><input type="checkbox" name="L3_used" value="1" /> 我會這個</label>
+    <div class="scale-row">
+      <span class="scale-end-label">完全不會</span>
+      <label><input type="radio" name="L3_level" value="1" /> 1</label>
+      <label><input type="radio" name="L3_level" value="2" /> 2</label>
+      <label><input type="radio" name="L3_level" value="3" /> 3</label>
+      <label><input type="radio" name="L3_level" value="4" /> 4</label>
+      <label><input type="radio" name="L3_level" value="5" /> 5</label>
+      <span class="scale-end-label">熟練操作</span>
+    </div>
     <div class="level-tools options">
       <p class="tools-label">使用工具（可複選）</p>
       <label><input type="checkbox" name="L3_tool" value="Gemini Gems" /> Gemini Gems（My Gem）</label>
@@ -127,8 +150,16 @@
 
   <div class="question level-question" data-q="L4">
     <p class="q-title"><span class="q-no">L4</span> 我會設計觸發式的自動工作流，讓流程定時或自動跑</p>
-    <p class="q-hint">例：用 Make / n8n / Zapier 把「每天抓新聞 → AI 摘要 → 寄到群組」串成自動流程，人只看結果。</p>
-    <label class="level-check"><input type="checkbox" name="L4_used" value="1" /> 我會這個</label>
+    <p class="q-hint">例:用 Make / n8n / Zapier 把「每天抓新聞 → AI 摘要 → 寄到群組」串成自動流程，人只看結果。</p>
+    <div class="scale-row">
+      <span class="scale-end-label">完全不會</span>
+      <label><input type="radio" name="L4_level" value="1" /> 1</label>
+      <label><input type="radio" name="L4_level" value="2" /> 2</label>
+      <label><input type="radio" name="L4_level" value="3" /> 3</label>
+      <label><input type="radio" name="L4_level" value="4" /> 4</label>
+      <label><input type="radio" name="L4_level" value="5" /> 5</label>
+      <span class="scale-end-label">熟練操作</span>
+    </div>
     <div class="level-tools options">
       <p class="tools-label">使用工具（可複選）</p>
       <label><input type="checkbox" name="L4_tool" value="Make" /> Make</label>
@@ -142,7 +173,15 @@
   <div class="question level-question" data-q="L5">
     <p class="q-title"><span class="q-no">L5</span> 我會用自然語言開發小型應用（Vibe Coding）</p>
     <p class="q-hint">例：用 Cursor、Claude Code、Lovable、v0 等工具，直接靠對話寫出一個小 Web App、桌面工具或表單。</p>
-    <label class="level-check"><input type="checkbox" name="L5_used" value="1" /> 我會這個</label>
+    <div class="scale-row">
+      <span class="scale-end-label">完全不會</span>
+      <label><input type="radio" name="L5_level" value="1" /> 1</label>
+      <label><input type="radio" name="L5_level" value="2" /> 2</label>
+      <label><input type="radio" name="L5_level" value="3" /> 3</label>
+      <label><input type="radio" name="L5_level" value="4" /> 4</label>
+      <label><input type="radio" name="L5_level" value="5" /> 5</label>
+      <span class="scale-end-label">熟練操作</span>
+    </div>
     <div class="level-tools options">
       <p class="tools-label">使用工具（可複選）</p>
       <label><input type="checkbox" name="L5_tool" value="ChatGPT Canvas" /> ChatGPT Canvas</label>
@@ -157,7 +196,15 @@
   <div class="question level-question" data-q="L6">
     <p class="q-title"><span class="q-no">L6</span> 我會設計多個 AI Agent 分工協作完成複雜任務</p>
     <p class="q-hint">例：一個 Agent 收資料 → 另一個分析 → 第三個寫報告，編排執行順序、設好交接條件。</p>
-    <label class="level-check"><input type="checkbox" name="L6_used" value="1" /> 我會這個</label>
+    <div class="scale-row">
+      <span class="scale-end-label">完全不會</span>
+      <label><input type="radio" name="L6_level" value="1" /> 1</label>
+      <label><input type="radio" name="L6_level" value="2" /> 2</label>
+      <label><input type="radio" name="L6_level" value="3" /> 3</label>
+      <label><input type="radio" name="L6_level" value="4" /> 4</label>
+      <label><input type="radio" name="L6_level" value="5" /> 5</label>
+      <span class="scale-end-label">熟練操作</span>
+    </div>
     <div class="level-tools options">
       <p class="tools-label">使用工具（可複選）</p>
       <label><input type="checkbox" name="L6_tool" value="Dify" /> Dify</label>

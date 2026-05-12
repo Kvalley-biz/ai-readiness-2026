@@ -762,6 +762,68 @@ textarea:focus {
   margin-top: 10px;
 }
 
+/* ============ 5 分量表（C 區 L1–L6）============ */
+.scale-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.scale-row .scale-end-label {
+  font-size: 12px;
+  color: var(--color-text-3);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.scale-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.15s;
+  min-width: 50px;
+  justify-content: center;
+}
+
+.scale-row label:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.scale-row label:has(input:checked) {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(200, 22, 30, 0.25);
+}
+
+.scale-row input[type="radio"] {
+  display: none;
+}
+
+/* 燈泡分數小字 */
+.bulb-score {
+  font-size: 11px;
+  color: var(--color-text-3);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.bulb.lit .bulb-score {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
 /* ============ Q hint + L1–L6 level questions ============ */
 .q-hint {
   font-size: 13px;
