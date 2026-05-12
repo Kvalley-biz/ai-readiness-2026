@@ -195,11 +195,25 @@ function collectAnswers() {
 function showReport(data) {
   form.hidden = true;
   submitBtn.hidden = true;
+  renderIdentity(data);
   renderBulbs(data.levels);
+  renderRecommendation(data);
+  renderToolMap(data);
   renderProfile(data);
-  renderLevelDetail(data.levels);
   reportEl.hidden = false;
   reportEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderIdentity(data) {
+  const card = document.getElementById('identity-card');
+  const name = escapeHtml(data.A1 || '—');
+  const dept = escapeHtml(data.A2 || '');
+  const title = escapeHtml(data.A3 || '');
+  const meta = [dept, title].filter(Boolean).join('　·　');
+  card.innerHTML = `
+    <div class="identity-name">${name}</div>
+    ${meta ? `<div class="identity-meta">${meta}</div>` : ''}
+  `;
 }
 
 const BULB_SVG = `
@@ -239,40 +253,112 @@ function renderBulbs(levels) {
 
 function renderProfile(data) {
   const list = document.getElementById('profile-list');
-  const tools = data.Q2.length > 0 ? data.Q2.join('、') : '—';
   const troubles = data.D1.length > 0 ? data.D1.join('、') : '—';
+  const expectations = data.D2.length > 0 ? data.D2.map(v => D2_LABELS[v] || v).join('、') : '—';
   const rows = [
-    ['姓名', data.A1 || '—'],
-    ['部門', data.A2 || '—'],
-    ['職稱', data.A3 || '—'],
     ['使用頻率', data.Q1 || '—'],
-    ['常用工具', tools],
     ['最常使用 AI 的內容', data.Q3 || '—'],
     ['最大困擾', troubles],
-    ['期待未來 AI 課程幫助', data.D2.length > 0 ? data.D2.map(v => D2_LABELS[v] || v).join('、') : '—'],
+    ['期待未來 AI 課程幫助', expectations],
   ];
   list.innerHTML = rows.map(([k, v]) =>
     `<dt>${k}</dt><dd>${escapeHtml(v)}</dd>`
   ).join('');
 }
 
-function renderLevelDetail(levels) {
-  const card = document.getElementById('level-detail-card');
-  const detail = document.getElementById('level-detail');
-  // 顯示熟練度 >= 2 的層次（試過以上才有意義列出工具）
-  const used = LEVELS.filter(L => levels[L].level >= 2);
-  if (used.length === 0) { card.hidden = true; return; }
-  card.hidden = false;
-  detail.innerHTML = used.map(L => {
-    const tools = levels[L].tools.length > 0 ? levels[L].tools.join('、') : '—';
-    return `
-      <div class="level-detail-row">
-        <span class="level-detail-code">${L}</span>
-        <span class="level-detail-label">${LEVEL_LABELS[L]}（${levels[L].level} / 5）</span>
-        <span class="level-detail-tools">${escapeHtml(tools)}</span>
+// ====== 學習路徑建議 ======
+function renderRecommendation(data) {
+  const levels = data.levels;
+  const target = document.getElementById('recommendation');
+
+  // 找出第一個熟練度 < 3 的層（接下來要補的）
+  const firstGap = LEVELS.find(L => levels[L].level < 3);
+  // 找出最高已達 3 以上的層
+  const reached = LEVELS.filter(L => levels[L].level >= 3);
+  const highest = reached.length > 0 ? reached[reached.length - 1] : null;
+
+  let coursePack, courseDesc, reason;
+
+  if (!highest) {
+    coursePack = 'L1–L3 普及課';
+    courseDesc = 'Prompt 指令設計 → 跨工具搬移 → 初步應用';
+    reason = '從 AI 使用基礎開始穩穩起步。';
+  } else if (firstGap === 'L1' || firstGap === 'L2' || firstGap === 'L3') {
+    coursePack = 'L1–L3 普及課';
+    courseDesc = '強化 Prompt 與跨工具搬移能力';
+    reason = `你已走到 ${highest}，但 ${firstGap} 還可以更穩。`;
+  } else if (firstGap === 'L4' || firstGap === 'L5') {
+    coursePack = 'L3–L5 自動化課';
+    courseDesc = '用 Make / n8n 把重複任務交給機器自動執行';
+    reason = `你的基本應用已熟練，下一步是把流程交給系統自己跑。`;
+  } else if (firstGap === 'L6') {
+    coursePack = 'L5–L7 進階課';
+    courseDesc = 'Vibe Coding 寫自製工具、設計多 Agent 協同';
+    reason = `你已具備自動化能力，下一步是用 AI 做出新東西。`;
+  } else {
+    coursePack = '任一階段深化';
+    courseDesc = '六階段都已具備能力，可選感興趣的方向深入，或帶領他人';
+    reason = '你各階段都有基本熟練度。';
+  }
+
+  // 結合 D2 期待
+  const D2_TO_PACK = {
+    'Prompt設計': 'L1–L3 普及課',
+    '自動化': 'L3–L5 自動化課',
+    '做新東西': 'L5–L7 進階課',
+  };
+  const echoes = [];
+  data.D2.forEach(v => {
+    const pack = D2_TO_PACK[v];
+    if (pack) echoes.push({ v, pack });
+  });
+
+  let d2Block = '';
+  if (echoes.length > 0) {
+    const lines = echoes.map(e =>
+      `<li><strong>${D2_LABELS[e.v] || e.v}</strong> → ${e.pack}</li>`
+    ).join('');
+    d2Block = `
+      <div class="rec-d2">
+        <p class="rec-d2-title">您勾選的期待也對應到：</p>
+        <ul class="rec-d2-list">${lines}</ul>
       </div>
     `;
-  }).join('');
+  }
+
+  target.innerHTML = `
+    <div class="rec-main">
+      <div class="rec-pack">${coursePack}</div>
+      <div class="rec-desc">${courseDesc}</div>
+      <p class="rec-reason">${reason}</p>
+    </div>
+    ${d2Block}
+  `;
+}
+
+// ====== AI 工具地圖 ======
+function renderToolMap(data) {
+  const target = document.getElementById('tool-map');
+  const groups = [
+    { title: '常用 AI 工具', tools: data.Q2 },
+    { title: 'L3 上下文容器', tools: data.levels.L3.tools },
+    { title: 'L4 自動化平台', tools: data.levels.L4.tools },
+    { title: 'L5 寫小工具', tools: data.levels.L5.tools },
+    { title: 'L6 Agent', tools: data.levels.L6.tools },
+  ];
+  const nonEmpty = groups.filter(g => g.tools && g.tools.length > 0);
+  if (nonEmpty.length === 0) {
+    target.innerHTML = '<p class="tool-map-empty">尚未使用任何 AI 工具 — 這份問卷就是您的起點。</p>';
+    return;
+  }
+  target.innerHTML = nonEmpty.map(g => `
+    <div class="tool-group">
+      <span class="tool-group-title">${g.title}</span>
+      <div class="tool-chips">
+        ${g.tools.map(t => `<span class="tool-chip">${escapeHtml(t)}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
 }
 
 function escapeHtml(s) {

@@ -1096,6 +1096,129 @@ textarea:focus {
   word-break: break-word;
 }
 
+/* ============ Report: 身份名片 ============ */
+.identity-card {
+  background: var(--color-ink);
+  color: #fff;
+  padding: 24px 28px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 18px;
+}
+
+.identity-name {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.identity-meta {
+  margin-top: 6px;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.5px;
+}
+
+/* ============ Report: 學習路徑建議 ============ */
+.recommendation-card {
+  background: linear-gradient(135deg, #fff 0%, var(--color-accent-soft) 100%);
+  border: 1px solid var(--color-accent-line);
+}
+
+.rec-main { margin-top: 6px; }
+
+.rec-pack {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  letter-spacing: 1px;
+}
+
+.rec-desc {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.rec-reason {
+  margin: 14px 0 0;
+  color: var(--color-text-2);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.rec-d2 {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-accent-line);
+}
+
+.rec-d2-title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--color-text-3);
+  letter-spacing: 1.5px;
+}
+
+.rec-d2-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rec-d2-list li {
+  font-size: 13.5px;
+  color: var(--color-text);
+  padding: 4px 0;
+  line-height: 1.6;
+}
+
+.rec-d2-list strong {
+  color: var(--color-accent-dark);
+  font-weight: 600;
+}
+
+/* ============ Report: AI 工具地圖 ============ */
+.tool-group {
+  margin-bottom: 16px;
+}
+
+.tool-group:last-child { margin-bottom: 0; }
+
+.tool-group-title {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--color-text-3);
+  margin-bottom: 8px;
+}
+
+.tool-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tool-chip {
+  padding: 5px 12px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--color-text);
+  letter-spacing: 0.3px;
+}
+
+.tool-map-empty {
+  margin: 0;
+  color: var(--color-text-3);
+  font-size: 14px;
+  font-style: italic;
+}
+
 /* ============ MOBILE ============ */
 @media (max-width: 600px) {
   .page-header { padding: 56px 20px 40px; }

@@ -246,28 +246,37 @@
 
 <button type="button" id="submit-btn">送出問卷</button>
 
-<!-- ========== 個人報告（燈泡 ＋ 使用畫像）========== -->
+<!-- ========== 個人報告 ========== -->
 <section id="report" hidden>
   <h2>您的 AI 使用畫像</h2>
   <p class="report-intro">下方是您剛剛填答的整理。資料已協助人資部門掌握全員現況，將作為未來 AI 課程設計依據。</p>
 
-  <!-- L1-L6 燈泡列 -->
+  <!-- 1. 身份名片 -->
+  <div class="identity-card" id="identity-card"></div>
+
+  <!-- 2. L1-L6 燈泡列 -->
   <div class="report-card bulbs-card">
     <p class="report-label">人機協作六階段</p>
     <div class="bulbs-row" id="bulbs-row"></div>
     <p class="bulbs-summary" id="bulbs-summary">—</p>
   </div>
 
-  <!-- 使用畫像 -->
-  <div class="report-card">
-    <p class="report-label">使用畫像</p>
-    <dl class="profile-list" id="profile-list"></dl>
+  <!-- 3. 適合你的下一步（學習路徑建議） -->
+  <div class="report-card recommendation-card">
+    <p class="report-label">適合您的下一步</p>
+    <div id="recommendation"></div>
   </div>
 
-  <!-- 各層工具明細 -->
-  <div class="report-card" id="level-detail-card" hidden>
-    <p class="report-label">各層級使用工具</p>
-    <div id="level-detail"></div>
+  <!-- 4. 你的 AI 工具地圖 -->
+  <div class="report-card" id="tool-map-card">
+    <p class="report-label">您的 AI 工具地圖</p>
+    <div id="tool-map"></div>
+  </div>
+
+  <!-- 5. 其他畫像（頻率 / 內容 / 困擾 / 期待） -->
+  <div class="report-card">
+    <p class="report-label">其他畫像</p>
+    <dl class="profile-list" id="profile-list"></dl>
   </div>
 
   <div id="submit-status" class="report-card status">
