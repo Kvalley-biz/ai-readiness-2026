@@ -9,12 +9,13 @@
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_aG4Ad74r2pASZfnvQ49zm1xu7r3fj8zI8R276d4Xw_TqECTwHOOZY9dW3dQ8y-63iQ/exec';
 
 const D2_LABELS = {
-  'Prompt寫法': '學會 AI Prompt 寫法',
-  '找適合工具': '找到適合自己工作的 AI 工具',
-  '最新應用': '了解 AI 最新應用',
-  '提升效率': '提升工作效率',
-  '部門案例': '學習部門實際案例',
-  '工作流程': '了解 AI 如何改變工作流程',
+  'Prompt設計': '學會 Prompt 設計',
+  '找適合工具': '找到適合工作的 AI 工具',
+  '實際案例': '學習部門/同業實際案例',
+  '自動化': '學會 AI 自動化流程',
+  '做新東西': '學會用 AI 做新東西',
+  '最新趨勢': '了解 AI 最新發展',
+  '風險邊界': '了解 AI 風險與邊界',
 };
 
 const LEVELS = ['L1','L2','L3','L4','L5','L6'];
@@ -123,7 +124,7 @@ function validate() {
   // D1 困擾
   if (!form.querySelector('input[name="D1"]:checked')) errors.push('D1');
 
-  // D2 期待
+  // D2 期待（複選）
   if (!form.querySelector('input[name="D2"]:checked')) errors.push('D2');
 
   // C 區：每個 L 都要有評分
@@ -175,7 +176,7 @@ function collectAnswers() {
     Q2: withOther(multi('Q2'), 'Q2'),
     Q3: (fd.get('Q3') || '').trim(),
     D1: withOther(multi('D1'), 'D1'),
-    D2: singleWithOther('D2'),
+    D2: withOther(multi('D2'), 'D2'),
     levels,
   };
 }
@@ -238,7 +239,7 @@ function renderProfile(data) {
     ['常用工具', tools],
     ['最常使用 AI 的內容', data.Q3 || '—'],
     ['最大困擾', troubles],
-    ['最希望 Workshop 幫忙', D2_LABELS[data.D2] || data.D2 || '—'],
+    ['期待 Workshop 幫助', data.D2.length > 0 ? data.D2.map(v => D2_LABELS[v] || v).join('、') : '—'],
   ];
   list.innerHTML = rows.map(([k, v]) =>
     `<dt>${k}</dt><dd>${escapeHtml(v)}</dd>`
@@ -283,7 +284,7 @@ function buildPayload(data) {
     Q2_常用工具: data.Q2.join('|'),
     Q3_最常使用內容: data.Q3,
     D1_最大困擾: data.D1.join('|'),
-    D2_最希望幫忙: data.D2,
+    D2_期待幫助: data.D2.join('|'),
   };
   LEVELS.forEach(L => {
     payload[`${L}_熟練度`] = data.levels[L].level || '';
