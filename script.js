@@ -271,19 +271,25 @@ function renderStageSummary(levels) {
   const strongest = sorted[0];
   const weakest = sorted[sorted.length - 1];
 
-  const allLow = LEVELS.every(L => levels[L].level <= 2);
-  if (allLow) {
-    summary.textContent = '六個面向熟練度都在 1–2 之間 — 未來 AI 課程將從基礎開始帶起';
+  const avg = LEVELS.reduce((s, L) => s + levels[L].level, 0) / LEVELS.length;
+  const range = levels[strongest].level - levels[weakest].level;
+
+  if (LEVELS.every(L => levels[L].level <= 2)) {
+    summary.innerHTML = `您目前在六個面向都還在起步階段，整體熟練度平均 <strong>${avg.toFixed(1)} / 5</strong>。`;
     return;
   }
 
-  // 強最弱分數相同 → 全部一致，不顯示強弱對比
-  if (levels[strongest].level === levels[weakest].level) {
-    summary.innerHTML = `各面向熟練度平均 <strong>${levels[strongest].level} / 5</strong>，發展均衡`;
+  if (LEVELS.every(L => levels[L].level >= 4)) {
+    summary.innerHTML = `您六個面向都已熟練，整體平均 <strong>${avg.toFixed(1)} / 5</strong>，是團隊裡的成熟 AI 使用者。`;
     return;
   }
 
-  summary.innerHTML = `最強：<strong>${LEVEL_LABELS[strongest]}（${levels[strongest].level} / 5）</strong> · 最弱：<strong>${LEVEL_LABELS[weakest]}（${levels[weakest].level} / 5）</strong>`;
+  if (range <= 1) {
+    summary.innerHTML = `您各面向發展平均，沒有特別突出或落後的能力，整體熟練度 <strong>${avg.toFixed(1)} / 5</strong>。`;
+    return;
+  }
+
+  summary.innerHTML = `您在「<strong>${LEVEL_LABELS[strongest]}</strong>」最熟練，「<strong>${LEVEL_LABELS[weakest]}</strong>」目前還在建立中，整體熟練度 <strong>${avg.toFixed(1)} / 5</strong>。`;
 }
 
 // ====== 雷達圖 ======
