@@ -394,7 +394,7 @@ main {
   padding: 5px 10px;
   border: 1px solid var(--color-border-2);
   border-radius: var(--radius);
-  font-size: 14px;
+  font-size: 16px;
   font-family: inherit;
   flex: 1;
   min-width: 140px;
@@ -413,7 +413,7 @@ textarea {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   font-family: inherit;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.75;
   resize: vertical;
   background: var(--color-surface);
@@ -750,7 +750,7 @@ textarea:focus {
   border-radius: var(--radius);
   background: var(--color-surface);
   font-family: inherit;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--color-text);
 }
 
@@ -885,14 +885,17 @@ textarea:focus {
 
 /* ============ Q hint + L1–L6 level questions ============ */
 .q-hint {
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--color-text-3);
-  margin: -8px 0 14px;
-  line-height: 1.65;
+  margin: -6px 0 14px;
+  line-height: 1.7;
   font-style: italic;
   font-family: var(--serif);
-  padding-left: 10px;
-  border-left: 2px solid var(--color-border-2);
+  padding: 8px 12px;
+  background: var(--color-surface-2);
+  border-left: 3px solid var(--color-border-2);
+  border-radius: 2px;
+  font-weight: 400;
 }
 
 .inline-num {
@@ -1302,8 +1305,8 @@ textarea:focus {
   .block h2 { font-size: 20px; }
 
   .options label { font-size: 14px; padding: 11px 13px; }
-  .q-title { font-size: 16px; }
-  .q-hint { font-size: 12.5px; }
+  .q-title { font-size: 17px; }
+  .q-hint { font-size: 12px; }
 
   #submit-btn { font-size: 16px; padding: 16px; letter-spacing: 3px; }
 
