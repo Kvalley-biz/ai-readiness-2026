@@ -223,7 +223,6 @@ function showReport(data) {
   drawRadar(data.levels);
   renderStageSummary(data.levels);
   renderRecommendation(data);
-  renderToolMap(data);
   reportEl.hidden = false;
   reportEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -234,9 +233,26 @@ function renderIdentity(data) {
   const dept = escapeHtml(data.A2 || '');
   const title = escapeHtml(data.A3 || '');
   const meta = [dept, title].filter(Boolean).join('　·　');
+  const avatar = escapeHtml((data.A1 || '?').trim().charAt(0));
+
+  const tags = [];
+  if (data.Q1) tags.push(`使用頻率　${escapeHtml(data.Q1)}`);
+  const sorted = [...LEVELS].sort((a, b) => data.levels[b].level - data.levels[a].level);
+  const strongest = sorted[0];
+  if (strongest && data.levels[strongest].level >= 3) {
+    tags.push(`最強　${LEVEL_LABELS[strongest]}`);
+  }
+  const tagHtml = tags.length
+    ? `<div class="identity-tags">${tags.map(t => `<span class="identity-tag">${t}</span>`).join('')}</div>`
+    : '';
+
   card.innerHTML = `
-    <div class="identity-name">${name}</div>
-    ${meta ? `<div class="identity-meta">${meta}</div>` : ''}
+    <div class="identity-avatar">${avatar}</div>
+    <div class="identity-main">
+      <div class="identity-name">${name}</div>
+      ${meta ? `<div class="identity-meta">${meta}</div>` : ''}
+    </div>
+    ${tagHtml}
   `;
 }
 
@@ -352,39 +368,36 @@ function renderRecommendation(data) {
     reason = `您最弱的面向是「${LEVEL_LABELS[weakestSingle]}」（${levels[weakestSingle].level} / 5），這組課程能補上這塊。`;
   }
 
+  // 目前已使用的工具（按功能類分組）
+  const toolGroups = [
+    { title: '自訂 AI 助手', tools: levels.L3.tools },
+    { title: '自動化串接', tools: levels.L4.tools },
+    { title: 'AI 寫程式', tools: levels.L5.tools },
+    { title: 'AI Agent', tools: levels.L6.tools },
+  ].filter(g => g.tools && g.tools.length > 0);
+
+  const toolsBlock = toolGroups.length > 0 ? `
+    <div class="rec-tools">
+      <p class="rec-tools-title">您目前已使用的工具</p>
+      ${toolGroups.map(g => `
+        <div class="tool-group">
+          <span class="tool-group-title">${g.title}</span>
+          <div class="tool-chips">
+            ${g.tools.map(t => `<span class="tool-chip">${escapeHtml(t)}</span>`).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  ` : '';
+
   target.innerHTML = `
     <div class="rec-main">
       <div class="rec-pack">${coursePack}</div>
       <div class="rec-desc">${courseDesc}</div>
       <p class="rec-reason">${reason}</p>
     </div>
+    ${toolsBlock}
   `;
-}
-
-// ====== AI 工具地圖 ======
-function renderToolMap(data) {
-  const target = document.getElementById('tool-map');
-  const groups = [
-    { title: '整合力工具（上下文容器）', tools: data.levels.L3.tools },
-    { title: '自動化力工具', tools: data.levels.L4.tools },
-    { title: '建構力工具（Vibe Coding）', tools: data.levels.L5.tools },
-    { title: '編排力工具（Agent）', tools: data.levels.L6.tools },
-  ];
-  const nonEmpty = groups.filter(g => g.tools && g.tools.length > 0);
-  const card = document.getElementById('tool-map-card');
-  if (nonEmpty.length === 0) {
-    card.hidden = true;
-    return;
-  }
-  card.hidden = false;
-  target.innerHTML = nonEmpty.map(g => `
-    <div class="tool-group">
-      <span class="tool-group-title">${g.title}</span>
-      <div class="tool-chips">
-        ${g.tools.map(t => `<span class="tool-chip">${escapeHtml(t)}</span>`).join('')}
-      </div>
-    </div>
-  `).join('');
 }
 
 function escapeHtml(s) {
