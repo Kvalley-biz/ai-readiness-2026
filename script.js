@@ -1,13 +1,22 @@
 /* ============================================================
-   商周 AI Workshop — 課前暖身問卷
-   - 表單驗證（A1 + Q1–Q6 必填，L1–L7 全部選填）
-   - 簡化結果頁
-   - 本地版預設不送 Google Sheet
+   商周 AI 能力調查問卷
+   - A 區（姓名 + 部門 + 職稱）
+   - B 區 Q1–Q3（頻率 5 量表 / 最常用工具 / 最常使用內容）
+   - C 區 L1–L6（我會這個 + 工具）
+   - D 區 D1–D2（困擾 + 期待）
    ============================================================ */
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_aG4Ad74r2pASZfnvQ49zm1xu7r3fj8zI8R276d4Xw_TqECTwHOOZY9dW3dQ8y-63iQ/exec';
 
-const Q5_LABELS = {
+const Q1_LABELS = {
+  '1': '1 - 從沒使用過',
+  '2': '2 - 很少使用',
+  '3': '3 - 偶爾使用',
+  '4': '4 - 經常使用',
+  '5': '5 - 每天都用',
+};
+
+const D2_LABELS = {
   'Prompt寫法': '學會 AI Prompt 寫法',
   '找適合工具': '找到適合自己工作的 AI 工具',
   '最新應用': '了解 AI 最新應用',
@@ -27,6 +36,16 @@ const formError = document.getElementById('form-error');
 const reportEl = document.getElementById('report');
 const submitBtn = document.getElementById('submit-btn');
 
+// ====== A2 其他部門：選了「其他」才顯示填寫欄 ======
+const a2Select = form.querySelector('select[name="A2"]');
+const a2Other = form.querySelector('input[name="A2_other"]');
+if (a2Select && a2Other) {
+  a2Select.addEventListener('change', () => {
+    a2Other.hidden = a2Select.value !== '其他';
+    if (a2Other.hidden) a2Other.value = '';
+  });
+}
+
 // ====== 互動：複選互斥 ＋ 上限 ======
 form.addEventListener('change', (e) => {
   const t = e.target;
@@ -40,7 +59,6 @@ form.addEventListener('change', (e) => {
     group.forEach(cb => { if (cb.dataset.exclusive === 'true') cb.checked = false; });
   }
 
-  // 處理 data-max 上限
   const max = parseInt(t.dataset.max, 10);
   if (max && t.checked) {
     const checkedCount = Array.from(group).filter(cb => cb.checked && cb.dataset.max).length;
@@ -92,19 +110,29 @@ function handleSubmit() {
 // ====== 驗證 ======
 function validate() {
   const errors = [];
-  if (!form.querySelector('input[name="A1"]:checked')) errors.push('A1');
 
-  ['Q1','Q5'].forEach(name => {
-    if (!form.querySelector(`input[name="${name}"]:checked`)) errors.push(name);
-  });
+  // A1 姓名
+  if (!form.querySelector('input[name="A1"]').value.trim()) errors.push('A1');
+  // A2 部門
+  if (!a2Select.value) errors.push('A2');
+  if (a2Select.value === '其他' && !a2Other.value.trim()) errors.push('A2');
+  // A3 職稱
+  if (!form.querySelector('input[name="A3"]').value.trim()) errors.push('A3');
 
-  // Q2、Q4 為複選，至少一個
+  // Q1 頻率
+  if (!form.querySelector('input[name="Q1"]:checked')) errors.push('Q1');
+
+  // Q2 最常用工具
   if (!form.querySelector('input[name="Q2"]:checked')) errors.push('Q2');
-  if (!form.querySelector('input[name="Q4"]:checked')) errors.push('Q4');
 
-  // Q3 textarea 必填
-  const q3 = form.querySelector('textarea[name="Q3"]');
-  if (!q3.value.trim()) errors.push('Q3');
+  // Q3 textarea
+  if (!form.querySelector('textarea[name="Q3"]').value.trim()) errors.push('Q3');
+
+  // D1 困擾
+  if (!form.querySelector('input[name="D1"]:checked')) errors.push('D1');
+
+  // D2 期待
+  if (!form.querySelector('input[name="D2"]:checked')) errors.push('D2');
 
   // C 區：至少勾選一項「我會這個」
   const anyLevelUsed = LEVELS.some(L => form.querySelector(`input[name="${L}_used"]:checked`));
@@ -137,17 +165,6 @@ function collectAnswers() {
     return v;
   };
 
-  // Q1 五分量表
-  const Q1_LABELS = {
-    '1': '1 - 從沒使用過',
-    '2': '2 - 很少使用',
-    '3': '3 - 偶爾使用',
-    '4': '4 - 經常使用',
-    '5': '5 - 每天都用',
-  };
-  const q1Raw = single('Q1');
-  const q1 = Q1_LABELS[q1Raw] || q1Raw;
-
   const levels = {};
   LEVELS.forEach(L => {
     levels[L] = {
@@ -157,12 +174,14 @@ function collectAnswers() {
   });
 
   return {
-    A1: singleWithOther('A1'),
-    Q1: q1,
+    A1: single('A1').trim(),
+    A2: singleWithOther('A2'),
+    A3: single('A3').trim(),
+    Q1: Q1_LABELS[single('Q1')] || single('Q1'),
     Q2: withOther(multi('Q2'), 'Q2'),
     Q3: (fd.get('Q3') || '').trim(),
-    Q4: withOther(multi('Q4'), 'Q4'),
-    Q5: singleWithOther('Q5'),
+    D1: withOther(multi('D1'), 'D1'),
+    D2: singleWithOther('D2'),
     levels,
   };
 }
@@ -213,13 +232,16 @@ function renderBulbs(levels) {
 function renderProfile(data) {
   const list = document.getElementById('profile-list');
   const tools = data.Q2.length > 0 ? data.Q2.join('、') : '—';
-  const troubles = data.Q4.length > 0 ? data.Q4.join('、') : '—';
+  const troubles = data.D1.length > 0 ? data.D1.join('、') : '—';
   const rows = [
+    ['姓名', data.A1 || '—'],
+    ['部門', data.A2 || '—'],
+    ['職稱', data.A3 || '—'],
     ['使用頻率', data.Q1 || '—'],
     ['最常用工具', tools],
     ['最常使用 AI 的內容', data.Q3 || '—'],
     ['最大困擾', troubles],
-    ['最希望 Workshop 幫忙', Q5_LABELS[data.Q5] || data.Q5 || '—'],
+    ['最希望 Workshop 幫忙', D2_LABELS[data.D2] || data.D2 || '—'],
   ];
   list.innerHTML = rows.map(([k, v]) =>
     `<dt>${k}</dt><dd>${escapeHtml(v)}</dd>`
@@ -256,12 +278,14 @@ function buildPayload(data) {
   const payload = {
     timestamp: new Date().toISOString(),
     version: 'workshop-warmup',
-    A1_部門: data.A1,
+    A1_姓名: data.A1,
+    A2_部門: data.A2,
+    A3_職稱: data.A3,
     Q1_使用頻率: data.Q1,
     Q2_最常用工具: data.Q2.join('|'),
     Q3_最常使用內容: data.Q3,
-    Q4_最大困擾: data.Q4.join('|'),
-    Q5_最希望幫忙: data.Q5,
+    D1_最大困擾: data.D1.join('|'),
+    D2_最希望幫忙: data.D2,
   };
   LEVELS.forEach(L => {
     payload[`${L}_有在做`] = data.levels[L].used ? 'Y' : '';
@@ -270,7 +294,7 @@ function buildPayload(data) {
   return payload;
 }
 
-// ====== 送到 Google Apps Script（預設停用）======
+// ====== 送到 Google Apps Script ======
 function sendToBackend(payload) {
   const statusEl = document.getElementById('submit-status');
   const msgEl = document.getElementById('submit-msg');

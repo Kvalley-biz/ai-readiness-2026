@@ -24,21 +24,33 @@
   <h2>A. 基本資料</h2>
 
   <div class="question" data-q="A1">
-    <p class="q-title"><span class="q-no">A1</span> 您所在的部門：</p>
-    <div class="options">
-      <label><input type="radio" name="A1" value="商周編輯處" /> 商周編輯處</label>
-      <label><input type="radio" name="A1" value="多媒體中心" /> 多媒體中心</label>
-      <label><input type="radio" name="A1" value="數位平台中心" /> 數位平台中心</label>
-      <label><input type="radio" name="A1" value="整合傳播處" /> 整合傳播處</label>
-      <label><input type="radio" name="A1" value="會員運營中心" /> 會員運營中心</label>
-      <label><input type="radio" name="A1" value="網商中心" /> 網商中心</label>
-      <label><input type="radio" name="A1" value="出版處" /> 出版處</label>
-      <label><input type="radio" name="A1" value="顧客運營處" /> 顧客運營處</label>
-      <label><input type="radio" name="A1" value="健康事業處" /> 健康事業處</label>
-      <label><input type="radio" name="A1" value="數據中心" /> 數據中心</label>
-      <label><input type="radio" name="A1" value="財務部" /> 財務部</label>
-      <label class="other"><input type="radio" name="A1" value="其他" /> 其他：<input type="text" name="A1_other" class="other-input" placeholder="請填寫" /></label>
-    </div>
+    <p class="q-title"><span class="q-no">A1</span> 姓名：</p>
+    <input type="text" name="A1" class="text-input" placeholder="請填寫您的姓名" />
+  </div>
+
+  <div class="question" data-q="A2">
+    <p class="q-title"><span class="q-no">A2</span> 您所在的部門：</p>
+    <select name="A2" class="select-input">
+      <option value="">— 請選擇 —</option>
+      <option value="商周編輯處">商周編輯處</option>
+      <option value="多媒體中心">多媒體中心</option>
+      <option value="數位平台中心">數位平台中心</option>
+      <option value="整合傳播處">整合傳播處</option>
+      <option value="會員運營中心">會員運營中心</option>
+      <option value="網商中心">網商中心</option>
+      <option value="出版處">出版處</option>
+      <option value="顧客運營處">顧客運營處</option>
+      <option value="健康事業處">健康事業處</option>
+      <option value="數據中心">數據中心</option>
+      <option value="財務部">財務部</option>
+      <option value="其他">其他</option>
+    </select>
+    <input type="text" name="A2_other" class="text-input other-followup" placeholder="若選其他，請填寫部門" hidden />
+  </div>
+
+  <div class="question" data-q="A3">
+    <p class="q-title"><span class="q-no">A3</span> 職稱：</p>
+    <input type="text" name="A3" class="text-input" placeholder="例：記者、編輯、業務、主編、總監" />
   </div>
 </section>
 
@@ -47,12 +59,13 @@
   <h2>B. AI 使用現況與需求</h2>
 
   <div class="question" data-q="Q1">
-    <p class="q-title"><span class="q-no">Q1</span> 您目前使用 AI 工具的頻率為何？</p>
+    <p class="q-title"><span class="q-no">Q1</span> 您目前使用 AI 工具的頻率為何？<span class="hint">（1 = 從沒用過，5 = 每天都用）</span></p>
     <div class="options">
-      <label><input type="radio" name="Q1" value="幾乎每天" /> 幾乎每天都會使用</label>
-      <label class="other"><input type="radio" name="Q1" value="每週" /> 每週會使用 <input type="number" name="Q1_count" min="1" max="7" class="other-input inline-num" placeholder="天數" /> 天</label>
-      <label><input type="radio" name="Q1" value="很少" /> 很少使用</label>
-      <label><input type="radio" name="Q1" value="沒用過" /> 沒有使用過</label>
+      <label><input type="radio" name="Q1" value="1" /> <strong>1</strong>　從沒使用過</label>
+      <label><input type="radio" name="Q1" value="2" /> <strong>2</strong>　很少使用（一個月一次以下）</label>
+      <label><input type="radio" name="Q1" value="3" /> <strong>3</strong>　偶爾使用（一週 1–2 次）</label>
+      <label><input type="radio" name="Q1" value="4" /> <strong>4</strong>　經常使用（一週 3–5 次）</label>
+      <label><input type="radio" name="Q1" value="5" /> <strong>5</strong>　每天都用</label>
     </div>
   </div>
 
@@ -81,33 +94,6 @@
     <textarea name="Q3" rows="3" placeholder="自由填答"></textarea>
   </div>
 
-  <div class="question" data-q="Q4">
-    <p class="q-title"><span class="q-no">Q4</span> 您目前在使用 AI 時，最大的困擾或卡點是？<span class="hint">（可複選，最多 3 個）</span></p>
-    <div class="options">
-      <label><input type="checkbox" name="Q4" value="不知道工具" data-max="3" /> 不知道有哪些工具可以用</label>
-      <label><input type="checkbox" name="Q4" value="不會下指令" data-max="3" /> 不知道怎麼下指令(Prompt)</label>
-      <label><input type="checkbox" name="Q4" value="結果不準" data-max="3" /> 結果不夠精準</label>
-      <label><input type="checkbox" name="Q4" value="不會導入工作" data-max="3" /> 不知道怎麼真正導入工作</label>
-      <label><input type="checkbox" name="Q4" value="正確性" data-max="3" /> 擔心資訊正確性</label>
-      <label><input type="checkbox" name="Q4" value="資料安全" data-max="3" /> 擔心資料安全</label>
-      <label><input type="checkbox" name="Q4" value="沒時間研究" data-max="3" /> 沒有時間研究</label>
-      <label><input type="checkbox" name="Q4" value="沒困擾" data-exclusive="true" /> 目前沒有特別困擾</label>
-      <label class="other"><input type="checkbox" name="Q4" value="其他" data-max="3" /> 其他：<input type="text" name="Q4_other" class="other-input" placeholder="請填寫" /></label>
-    </div>
-  </div>
-
-  <div class="question" data-q="Q5">
-    <p class="q-title"><span class="q-no">Q5</span> 如果這次 Workshop 能幫助您一件事，您最希望是？</p>
-    <div class="options">
-      <label><input type="radio" name="Q5" value="Prompt寫法" /> 學會 AI Prompt 寫法</label>
-      <label><input type="radio" name="Q5" value="找適合工具" /> 找到適合自己工作的 AI 工具</label>
-      <label><input type="radio" name="Q5" value="最新應用" /> 了解 AI 最新應用</label>
-      <label><input type="radio" name="Q5" value="提升效率" /> 提升工作效率</label>
-      <label><input type="radio" name="Q5" value="部門案例" /> 學習部門實際案例</label>
-      <label><input type="radio" name="Q5" value="工作流程" /> 了解 AI 如何改變工作流程</label>
-      <label class="other"><input type="radio" name="Q5" value="其他" /> 其他：<input type="text" name="Q5_other" class="other-input" placeholder="請填寫" /></label>
-    </div>
-  </div>
 </section>
 
 <!-- ========== C. 人機協作七階段 ========== -->
@@ -181,6 +167,39 @@
     </div>
   </div>
 
+</section>
+
+<!-- ========== D. 期待與需求 ========== -->
+<section class="block" data-block="D">
+  <h2>D. 期待與需求</h2>
+
+  <div class="question" data-q="D1">
+    <p class="q-title"><span class="q-no">D1</span> 您目前在使用 AI 時，最大的困擾或卡點是？<span class="hint">（可複選，最多 3 個）</span></p>
+    <div class="options">
+      <label><input type="checkbox" name="D1" value="不知道工具" data-max="3" /> 不知道有哪些工具可以用</label>
+      <label><input type="checkbox" name="D1" value="不會下指令" data-max="3" /> 不知道怎麼下指令(Prompt)</label>
+      <label><input type="checkbox" name="D1" value="結果不準" data-max="3" /> 結果不夠精準</label>
+      <label><input type="checkbox" name="D1" value="不會導入工作" data-max="3" /> 不知道怎麼真正導入工作</label>
+      <label><input type="checkbox" name="D1" value="正確性" data-max="3" /> 擔心資訊正確性</label>
+      <label><input type="checkbox" name="D1" value="資料安全" data-max="3" /> 擔心資料安全</label>
+      <label><input type="checkbox" name="D1" value="沒時間研究" data-max="3" /> 沒有時間研究</label>
+      <label><input type="checkbox" name="D1" value="沒困擾" data-exclusive="true" /> 目前沒有特別困擾</label>
+      <label class="other"><input type="checkbox" name="D1" value="其他" data-max="3" /> 其他：<input type="text" name="D1_other" class="other-input" placeholder="請填寫" /></label>
+    </div>
+  </div>
+
+  <div class="question" data-q="D2">
+    <p class="q-title"><span class="q-no">D2</span> 如果這次 Workshop 能幫助您一件事，您最希望是？</p>
+    <div class="options">
+      <label><input type="radio" name="D2" value="Prompt寫法" /> 學會 AI Prompt 寫法</label>
+      <label><input type="radio" name="D2" value="找適合工具" /> 找到適合自己工作的 AI 工具</label>
+      <label><input type="radio" name="D2" value="最新應用" /> 了解 AI 最新應用</label>
+      <label><input type="radio" name="D2" value="提升效率" /> 提升工作效率</label>
+      <label><input type="radio" name="D2" value="部門案例" /> 學習部門實際案例</label>
+      <label><input type="radio" name="D2" value="工作流程" /> 了解 AI 如何改變工作流程</label>
+      <label class="other"><input type="radio" name="D2" value="其他" /> 其他：<input type="text" name="D2_other" class="other-input" placeholder="請填寫" /></label>
+    </div>
+  </div>
 </section>
 
 </form>
