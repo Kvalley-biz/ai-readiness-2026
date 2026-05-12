@@ -233,7 +233,7 @@ function renderBulbs(levels) {
     const highest = reached[reached.length - 1];
     summary.innerHTML = `已點亮 <strong>${reached.length}</strong> 個層次（熟練度 ≥ 3）· 目前走到 <strong>${highest}（${LEVEL_LABELS[highest]}）</strong>`;
   } else {
-    summary.textContent = '目前各階段熟練度都在 1–2 之間 — Workshop 將從基礎開始帶起';
+    summary.textContent = '目前各階段熟練度都在 1–2 之間 — 未來 AI 課程將從基礎開始帶起';
   }
 }
 
@@ -249,7 +249,7 @@ function renderProfile(data) {
     ['常用工具', tools],
     ['最常使用 AI 的內容', data.Q3 || '—'],
     ['最大困擾', troubles],
-    ['期待 Workshop 幫助', data.D2.length > 0 ? data.D2.map(v => D2_LABELS[v] || v).join('、') : '—'],
+    ['期待未來 AI 課程幫助', data.D2.length > 0 ? data.D2.map(v => D2_LABELS[v] || v).join('、') : '—'],
   ];
   list.innerHTML = rows.map(([k, v]) =>
     `<dt>${k}</dt><dd>${escapeHtml(v)}</dd>`
