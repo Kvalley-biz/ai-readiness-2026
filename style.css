@@ -946,6 +946,17 @@ textarea:focus {
   line-height: 1.5;
 }
 
+.level-tools.locked {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.level-tools.locked .tools-label::after {
+  content: ' — 完全不會時不需勾選';
+  font-style: italic;
+  color: var(--color-text-3);
+}
+
 /* ============ Report: L1-L6 bulbs ============ */
 .bulbs-card { padding-bottom: 28px; }
 

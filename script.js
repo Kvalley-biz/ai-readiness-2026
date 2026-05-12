@@ -67,6 +67,25 @@ form.addEventListener('change', (e) => {
   }
 });
 
+// ====== 完全不會 → 鎖住該題工具區 ======
+form.addEventListener('change', (e) => {
+  const t = e.target;
+  if (t.type !== 'radio') return;
+  if (!/^L[3-6]_level$/.test(t.name)) return;
+  const question = t.closest('.level-question');
+  const toolsBox = question && question.querySelector('.level-tools');
+  if (!toolsBox) return;
+  const locked = t.value === '1';
+  toolsBox.classList.toggle('locked', locked);
+  toolsBox.querySelectorAll('input').forEach(input => {
+    input.disabled = locked;
+    if (locked) {
+      if (input.type === 'checkbox') input.checked = false;
+      else if (input.type === 'text') input.value = '';
+    }
+  });
+});
+
 // ====== 表單送出 ======
 submitBtn.addEventListener('click', (e) => {
   e.preventDefault();
@@ -205,7 +224,6 @@ function showReport(data) {
   renderStageSummary(data.levels);
   renderRecommendation(data);
   renderToolMap(data);
-  renderProfile(data);
   reportEl.hidden = false;
   reportEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -253,28 +271,13 @@ function renderStageSummary(levels) {
   summary.innerHTML = `最強：<strong>${LEVEL_LABELS[strongest]}（${levels[strongest].level} / 5）</strong> · 最弱：<strong>${LEVEL_LABELS[weakest]}（${levels[weakest].level} / 5）</strong>`;
 }
 
-function renderProfile(data) {
-  const list = document.getElementById('profile-list');
-  const troubles = data.D1.length > 0 ? data.D1.join('、') : '—';
-  const expectations = data.D2.length > 0 ? data.D2.map(v => D2_LABELS[v] || v).join('、') : '—';
-  const rows = [
-    ['使用頻率', data.Q1 || '—'],
-    ['最常使用 AI 的內容', data.Q3 || '—'],
-    ['最大困擾', troubles],
-    ['期待未來 AI 課程幫助', expectations],
-  ];
-  list.innerHTML = rows.map(([k, v]) =>
-    `<dt>${k}</dt><dd>${escapeHtml(v)}</dd>`
-  ).join('');
-}
-
 // ====== 雷達圖 ======
 function drawRadar(levels) {
   const ctx = document.getElementById('radar-chart').getContext('2d');
   new Chart(ctx, {
     type: 'radar',
     data: {
-      labels: LEVELS.map(L => `${L} ${LEVEL_LABELS[L]}`),
+      labels: LEVELS.map(L => LEVEL_LABELS[L]),
       datasets: [{
         label: '熟練度',
         data: LEVELS.map(L => levels[L].level),
@@ -349,38 +352,12 @@ function renderRecommendation(data) {
     reason = `您最弱的面向是「${LEVEL_LABELS[weakestSingle]}」（${levels[weakestSingle].level} / 5），這組課程能補上這塊。`;
   }
 
-  // 結合 D2 期待
-  const D2_TO_PACK = {
-    'Prompt設計': 'L1–L3 普及課',
-    '自動化': 'L3–L5 自動化課',
-    '做新東西': 'L5–L7 進階課',
-  };
-  const echoes = [];
-  data.D2.forEach(v => {
-    const pack = D2_TO_PACK[v];
-    if (pack) echoes.push({ v, pack });
-  });
-
-  let d2Block = '';
-  if (echoes.length > 0) {
-    const lines = echoes.map(e =>
-      `<li><strong>${D2_LABELS[e.v] || e.v}</strong> → ${e.pack}</li>`
-    ).join('');
-    d2Block = `
-      <div class="rec-d2">
-        <p class="rec-d2-title">您勾選的期待也對應到：</p>
-        <ul class="rec-d2-list">${lines}</ul>
-      </div>
-    `;
-  }
-
   target.innerHTML = `
     <div class="rec-main">
       <div class="rec-pack">${coursePack}</div>
       <div class="rec-desc">${courseDesc}</div>
       <p class="rec-reason">${reason}</p>
     </div>
-    ${d2Block}
   `;
 }
 
@@ -388,17 +365,18 @@ function renderRecommendation(data) {
 function renderToolMap(data) {
   const target = document.getElementById('tool-map');
   const groups = [
-    { title: '常用 AI 工具', tools: data.Q2 },
     { title: '整合力工具（上下文容器）', tools: data.levels.L3.tools },
     { title: '自動化力工具', tools: data.levels.L4.tools },
     { title: '建構力工具（Vibe Coding）', tools: data.levels.L5.tools },
     { title: '編排力工具（Agent）', tools: data.levels.L6.tools },
   ];
   const nonEmpty = groups.filter(g => g.tools && g.tools.length > 0);
+  const card = document.getElementById('tool-map-card');
   if (nonEmpty.length === 0) {
-    target.innerHTML = '<p class="tool-map-empty">尚未使用任何 AI 工具 — 這份問卷就是您的起點。</p>';
+    card.hidden = true;
     return;
   }
+  card.hidden = false;
   target.innerHTML = nonEmpty.map(g => `
     <div class="tool-group">
       <span class="tool-group-title">${g.title}</span>
