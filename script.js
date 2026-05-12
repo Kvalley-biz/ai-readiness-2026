@@ -351,9 +351,9 @@ function renderRecommendation(data) {
   // 找最弱組
   const weakestSingle = [...LEVELS].sort((a,b) => levels[a].level - levels[b].level)[0];
   const groups = [
-    { name: 'base', avg: baseAvg, pack: 'L1–L3 普及課', desc: 'Prompt 設計、跨工具整合與初步應用', dims: ['對話力','指令力','整合力'] },
-    { name: 'auto', avg: autoAvg, pack: 'L3–L5 自動化課', desc: '用 Make / n8n / Google Apps Script 把重複任務交給機器跑', dims: ['自動化力'] },
-    { name: 'adv',  avg: advAvg,  pack: 'L5–L7 進階課', desc: 'Vibe Coding 寫自製工具、設計或使用 AI Agent', dims: ['建構力','編排力'] },
+    { name: 'base', avg: baseAvg, pack: '普及課', desc: 'Prompt 設計、跨工具整合與初步應用', dims: ['對話力','指令力','整合力'] },
+    { name: 'auto', avg: autoAvg, pack: '自動化課', desc: '用 Make / n8n / Google Apps Script 把重複任務交給機器跑', dims: ['自動化力'] },
+    { name: 'adv',  avg: advAvg,  pack: '進階課', desc: 'Vibe Coding 寫自製工具、設計或使用 AI Agent', dims: ['建構力','編排力'] },
   ];
   const weakestGroup = [...groups].sort((a,b) => a.avg - b.avg)[0];
 
