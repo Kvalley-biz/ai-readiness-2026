@@ -196,8 +196,8 @@ function showReport(data) {
   form.hidden = true;
   submitBtn.hidden = true;
   renderIdentity(data);
-  renderBulbs(data.levels);
   drawRadar(data.levels);
+  renderStageSummary(data.levels);
   renderRecommendation(data);
   renderToolMap(data);
   renderProfile(data);
@@ -226,27 +226,12 @@ const BULB_SVG = `
   <path class="bulb-cap" d="M17 48 L 23 48 L 22 51 L 18 51 Z"/>
 </svg>`;
 
-function renderBulbs(levels) {
-  // 熟練度 >= 3（偶爾做以上）算亮起
-  const row = document.getElementById('bulbs-row');
-  row.innerHTML = LEVELS.map(L => {
-    const v = levels[L].level;
-    const lit = v >= 3;
-    return `
-      <div class="bulb ${lit ? 'lit' : ''}">
-        <div class="bulb-icon">${BULB_SVG}</div>
-        <span class="bulb-code">${L}</span>
-        <span class="bulb-label">${LEVEL_LABELS[L]}</span>
-        <span class="bulb-score">${v} / 5</span>
-      </div>
-    `;
-  }).join('');
-
+function renderStageSummary(levels) {
   const reached = LEVELS.filter(L => levels[L].level >= 3);
   const summary = document.getElementById('bulbs-summary');
   if (reached.length > 0) {
     const highest = reached[reached.length - 1];
-    summary.innerHTML = `已點亮 <strong>${reached.length}</strong> 個層次（熟練度 ≥ 3）· 目前走到 <strong>${highest}（${LEVEL_LABELS[highest]}）</strong>`;
+    summary.innerHTML = `已達熟練度 ≥ 3 的層次：<strong>${reached.length}</strong> 個 · 目前最高走到 <strong>${highest}（${LEVEL_LABELS[highest]}）</strong>`;
   } else {
     summary.textContent = '目前各階段熟練度都在 1–2 之間 — 未來 AI 課程將從基礎開始帶起';
   }
