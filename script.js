@@ -19,9 +19,14 @@ const D2_LABELS = {
 };
 
 const LEVELS = ['L1','L2','L3','L4','L5','L6'];
+// 顯示用「面向」名稱（資料內部仍用 L1–L6 為 key）
 const LEVEL_LABELS = {
-  L1: '會問', L2: '會拆', L3: '會串',
-  L4: '會自動化', L5: '會架應用', L6: '會指揮',
+  L1: '對話力',
+  L2: '指令力',
+  L3: '整合力',
+  L4: '自動化力',
+  L5: '建構力',
+  L6: '編排力',
 };
 
 const form = document.getElementById('assessment-form');
@@ -227,14 +232,25 @@ const BULB_SVG = `
 </svg>`;
 
 function renderStageSummary(levels) {
-  const reached = LEVELS.filter(L => levels[L].level >= 3);
   const summary = document.getElementById('bulbs-summary');
-  if (reached.length > 0) {
-    const highest = reached[reached.length - 1];
-    summary.innerHTML = `已達熟練度 ≥ 3 的層次：<strong>${reached.length}</strong> 個 · 目前最高走到 <strong>${highest}（${LEVEL_LABELS[highest]}）</strong>`;
-  } else {
-    summary.textContent = '目前各階段熟練度都在 1–2 之間 — 未來 AI 課程將從基礎開始帶起';
+  // 找最強、最弱面向
+  const sorted = [...LEVELS].sort((a, b) => levels[b].level - levels[a].level);
+  const strongest = sorted[0];
+  const weakest = sorted[sorted.length - 1];
+
+  const allLow = LEVELS.every(L => levels[L].level <= 2);
+  if (allLow) {
+    summary.textContent = '六個面向熟練度都在 1–2 之間 — 未來 AI 課程將從基礎開始帶起';
+    return;
   }
+
+  // 強最弱分數相同 → 全部一致，不顯示強弱對比
+  if (levels[strongest].level === levels[weakest].level) {
+    summary.innerHTML = `各面向熟練度平均 <strong>${levels[strongest].level} / 5</strong>，發展均衡`;
+    return;
+  }
+
+  summary.innerHTML = `最強：<strong>${LEVEL_LABELS[strongest]}（${levels[strongest].level} / 5）</strong> · 最弱：<strong>${LEVEL_LABELS[weakest]}（${levels[weakest].level} / 5）</strong>`;
 }
 
 function renderProfile(data) {
@@ -302,39 +318,35 @@ function drawRadar(levels) {
   });
 }
 
-// ====== 學習路徑建議 ======
+// ====== 學習路徑建議（找最弱面向群組） ======
 function renderRecommendation(data) {
   const levels = data.levels;
   const target = document.getElementById('recommendation');
 
-  // 找出第一個熟練度 < 3 的層（接下來要補的）
-  const firstGap = LEVELS.find(L => levels[L].level < 3);
-  // 找出最高已達 3 以上的層
-  const reached = LEVELS.filter(L => levels[L].level >= 3);
-  const highest = reached.length > 0 ? reached[reached.length - 1] : null;
+  // 三組面向各自平均
+  const groupAvg = (ls) => ls.reduce((s, L) => s + levels[L].level, 0) / ls.length;
+  const baseAvg = groupAvg(['L1','L2','L3']); // 普及段
+  const autoAvg = groupAvg(['L4']);            // 自動化段
+  const advAvg  = groupAvg(['L5','L6']);       // 進階段
+
+  // 找最弱組
+  const weakestSingle = [...LEVELS].sort((a,b) => levels[a].level - levels[b].level)[0];
+  const groups = [
+    { name: 'base', avg: baseAvg, pack: 'L1–L3 普及課', desc: 'Prompt 設計、跨工具整合與初步應用', dims: ['對話力','指令力','整合力'] },
+    { name: 'auto', avg: autoAvg, pack: 'L3–L5 自動化課', desc: '用 Make / n8n / Google Apps Script 把重複任務交給機器跑', dims: ['自動化力'] },
+    { name: 'adv',  avg: advAvg,  pack: 'L5–L7 進階課', desc: 'Vibe Coding 寫自製工具、設計或使用 AI Agent', dims: ['建構力','編排力'] },
+  ];
+  const weakestGroup = [...groups].sort((a,b) => a.avg - b.avg)[0];
 
   let coursePack, courseDesc, reason;
-
-  if (!highest) {
-    coursePack = 'L1–L3 普及課';
-    courseDesc = 'Prompt 指令設計 → 跨工具搬移 → 初步應用';
-    reason = '從 AI 使用基礎開始穩穩起步。';
-  } else if (firstGap === 'L1' || firstGap === 'L2' || firstGap === 'L3') {
-    coursePack = 'L1–L3 普及課';
-    courseDesc = '強化 Prompt 與跨工具搬移能力';
-    reason = `你已走到 ${highest}，但 ${firstGap} 還可以更穩。`;
-  } else if (firstGap === 'L4' || firstGap === 'L5') {
-    coursePack = 'L3–L5 自動化課';
-    courseDesc = '用 Make / n8n 把重複任務交給機器自動執行';
-    reason = `你的基本應用已熟練，下一步是把流程交給系統自己跑。`;
-  } else if (firstGap === 'L6') {
-    coursePack = 'L5–L7 進階課';
-    courseDesc = 'Vibe Coding 寫自製工具、設計多 Agent 協同';
-    reason = `你已具備自動化能力，下一步是用 AI 做出新東西。`;
+  if (LEVELS.every(L => levels[L].level >= 3)) {
+    coursePack = '任一面向深化';
+    courseDesc = '六個面向都已具備基本熟練度，可選感興趣的方向深入，或帶領他人';
+    reason = '您各面向都有 ≥ 3 的熟練度。';
   } else {
-    coursePack = '任一階段深化';
-    courseDesc = '六階段都已具備能力，可選感興趣的方向深入，或帶領他人';
-    reason = '你各階段都有基本熟練度。';
+    coursePack = weakestGroup.pack;
+    courseDesc = weakestGroup.desc;
+    reason = `您最弱的面向是「${LEVEL_LABELS[weakestSingle]}」（${levels[weakestSingle].level} / 5），這組課程能補上這塊。`;
   }
 
   // 結合 D2 期待
@@ -377,10 +389,10 @@ function renderToolMap(data) {
   const target = document.getElementById('tool-map');
   const groups = [
     { title: '常用 AI 工具', tools: data.Q2 },
-    { title: 'L3 上下文容器', tools: data.levels.L3.tools },
-    { title: 'L4 自動化平台', tools: data.levels.L4.tools },
-    { title: 'L5 寫小工具', tools: data.levels.L5.tools },
-    { title: 'L6 Agent', tools: data.levels.L6.tools },
+    { title: '整合力工具（上下文容器）', tools: data.levels.L3.tools },
+    { title: '自動化力工具', tools: data.levels.L4.tools },
+    { title: '建構力工具（Vibe Coding）', tools: data.levels.L5.tools },
+    { title: '編排力工具（Agent）', tools: data.levels.L6.tools },
   ];
   const nonEmpty = groups.filter(g => g.tools && g.tools.length > 0);
   if (nonEmpty.length === 0) {

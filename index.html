@@ -98,11 +98,11 @@
 
 <!-- ========== C. 人機協作七階段 ========== -->
 <section class="block" data-block="C">
-  <h2>C. 下列哪些事您目前會做？</h2>
-  <p class="block-intro">以下由淺到深，請就每一項評估自己的熟練度（1 = 完全不會，5 = 熟練操作），並選擇使用的工具。</p>
+  <h2>C. 您在 AI 各面向的熟練度</h2>
+  <p class="block-intro">以下六個面向，請就每一項評估自己的熟練度（1 = 完全不會，5 = 熟練操作），並選擇使用的工具。</p>
 
   <div class="question level-question" data-q="L1">
-    <p class="q-title"><span class="q-no">L1</span> 我會用 AI 對話、問問題、查資料</p>
+    <p class="q-title"><span class="q-no q-dim">對話力</span> 我會用 AI 對話、問問題、查資料</p>
     <p class="q-hint">例：請 ChatGPT 想標題、解釋一個概念、整理會議重點。</p>
     <div class="scale-line">
       <label class="scale-pt"><input type="radio" name="L1_level" value="1" /><span class="scale-dot"></span><span class="scale-num">1</span><span class="scale-desc">完全不會</span></label>
@@ -114,7 +114,7 @@
   </div>
 
   <div class="question level-question" data-q="L2">
-    <p class="q-title"><span class="q-no">L2</span> 我會下多步驟指令，讓 AI 一次完成任務</p>
+    <p class="q-title"><span class="q-no q-dim">指令力</span> 我會下多步驟指令，讓 AI 一次完成任務</p>
     <p class="q-hint">例：「先讀這份資料 → 抓出三個重點 → 用商周風格寫成 300 字摘要 → 再幫我下三個標題備選」。</p>
     <div class="scale-line">
       <label class="scale-pt"><input type="radio" name="L2_level" value="1" /><span class="scale-dot"></span><span class="scale-num">1</span><span class="scale-desc">完全不會</span></label>
@@ -126,7 +126,7 @@
   </div>
 
   <div class="question level-question" data-q="L3">
-    <p class="q-title"><span class="q-no">L3</span> 我會使用多種 AI 工具組合，完成單一任務</p>
+    <p class="q-title"><span class="q-no q-dim">整合力</span> 我會使用多種 AI 工具組合，完成單一任務</p>
     <p class="q-hint">例：用 NotebookLM 讀 PDF → 把摘要丟給 Claude 寫成報導；或用 Perplexity 找資料 → ChatGPT 整理 → Canva AI 出圖。</p>
     <div class="scale-line">
       <label class="scale-pt"><input type="radio" name="L3_level" value="1" /><span class="scale-dot"></span><span class="scale-num">1</span><span class="scale-desc">完全不會</span></label>
@@ -144,7 +144,7 @@
   </div>
 
   <div class="question level-question" data-q="L4">
-    <p class="q-title"><span class="q-no">L4</span> 我會設計觸發式的自動工作流，讓流程定時或自動跑</p>
+    <p class="q-title"><span class="q-no q-dim">自動化力</span> 我會設計觸發式的自動工作流，讓流程定時或自動跑</p>
     <p class="q-hint">例:用 Make / n8n / Zapier 把「每天抓新聞 → AI 摘要 → 寄到群組」串成自動流程，人只看結果。</p>
     <div class="scale-line">
       <label class="scale-pt"><input type="radio" name="L4_level" value="1" /><span class="scale-dot"></span><span class="scale-num">1</span><span class="scale-desc">完全不會</span></label>
@@ -164,7 +164,7 @@
   </div>
 
   <div class="question level-question" data-q="L5">
-    <p class="q-title"><span class="q-no">L5</span> 我會用自然語言開發小型應用（Vibe Coding）</p>
+    <p class="q-title"><span class="q-no q-dim">建構力</span> 我會用自然語言開發小型應用（Vibe Coding）</p>
     <p class="q-hint">例：用 Cursor、Claude Code、Lovable、v0 等工具，直接靠對話寫出一個小 Web App、桌面工具或表單。</p>
     <div class="scale-line">
       <label class="scale-pt"><input type="radio" name="L5_level" value="1" /><span class="scale-dot"></span><span class="scale-num">1</span><span class="scale-desc">完全不會</span></label>
@@ -185,7 +185,7 @@
   </div>
 
   <div class="question level-question" data-q="L6">
-    <p class="q-title"><span class="q-no">L6</span> 我會設計或使用 AI Agent 完成複雜任務</p>
+    <p class="q-title"><span class="q-no q-dim">編排力</span> 我會設計或使用 AI Agent 完成複雜任務</p>
     <p class="q-hint">例：自己用 Dify / Coze 拉多個 Agent 分工編排，或直接用 Manus 等通用 Agent 交派一整件事讓它自己跑完。</p>
     <div class="scale-line">
       <label class="scale-pt"><input type="radio" name="L6_level" value="1" /><span class="scale-dot"></span><span class="scale-num">1</span><span class="scale-desc">完全不會</span></label>
@@ -254,9 +254,9 @@
   <!-- 1. 身份名片 -->
   <div class="identity-card" id="identity-card"></div>
 
-  <!-- 2. 雷達圖 + 階段總結 -->
+  <!-- 2. 雷達圖 + 強弱項總結 -->
   <div class="report-card radar-card">
-    <p class="report-label">人機協作六階段熟練度</p>
+    <p class="report-label">AI 能力六面向熟練度</p>
     <div class="chart-wrap">
       <canvas id="radar-chart"></canvas>
     </div>
