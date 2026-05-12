@@ -82,13 +82,15 @@ function handleSubmit() {
       const qDiv = document.querySelector(`.question[data-q="${qName}"]`);
       if (qDiv) qDiv.classList.add('error');
     });
-    const hasLevelError = errors.some(e => e.startsWith('L'));
-    const otherCount = errors.filter(e => !e.startsWith('L')).length;
-    if (hasLevelError && otherCount === 0) {
-      formError.textContent = 'C 區請至少勾選一項「我會這個」才能送出';
-    } else {
-      formError.textContent = `還有 ${otherCount + (hasLevelError ? 1 : 0)} 題未完成，請往上檢查（紅色標示）`;
-    }
+    const levelErrors = errors.filter(e => e.startsWith('L'));
+    const otherErrors = errors.filter(e => !e.startsWith('L'));
+    const missingLevel = levelErrors.filter(L => !form.querySelector(`input[name="${L}_level"]:checked`));
+    const missingTool = levelErrors.filter(L => form.querySelector(`input[name="${L}_level"]:checked`));
+    const msgParts = [];
+    if (otherErrors.length > 0) msgParts.push(`${otherErrors.length} 題未完成`);
+    if (missingLevel.length > 0) msgParts.push(`C 區 ${missingLevel.join('、')} 未評分`);
+    if (missingTool.length > 0) msgParts.push(`C 區 ${missingTool.join('、')} 熟練度 ≥ 2 須勾至少一個工具`);
+    formError.textContent = msgParts.join('；') + '（紅色標示處）';
     formError.hidden = false;
     const first = document.querySelector('.question.error');
     if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -127,10 +129,18 @@ function validate() {
   // D2 期待（複選）
   if (!form.querySelector('input[name="D2"]:checked')) errors.push('D2');
 
-  // C 區：每個 L 都要有評分
+  // C 區：每個 L 都要有評分；若 ≥ 2 且該層有工具區，至少要勾一個工具
   LEVELS.forEach(L => {
-    if (!form.querySelector(`input[name="${L}_level"]:checked`)) {
+    const levelInput = form.querySelector(`input[name="${L}_level"]:checked`);
+    if (!levelInput) {
       errors.push(L);
+      return;
+    }
+    const hasToolGroup = form.querySelector(`input[name="${L}_tool"]`);
+    if (hasToolGroup && levelInput.value !== '1') {
+      if (!form.querySelector(`input[name="${L}_tool"]:checked`)) {
+        errors.push(L);
+      }
     }
   });
 
